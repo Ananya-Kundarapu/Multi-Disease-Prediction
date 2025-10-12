@@ -4,6 +4,7 @@ import os
 
 app = Flask(__name__)
 
+# Directories
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
@@ -27,43 +28,45 @@ models = {
     )
 }
 
+# Feature order must match training
+feature_order = {
+    'Diabetes': ['Pregnancies','Glucose','BloodPressure','SkinThickness','Insulin','BMI','DiabetesPedigreeFunction','Age'],
+    'Heart Disease': ['age','sex','cp','trestbps','chol','fbs','restecg','thalach','exang','oldpeak','slope','ca','thal'],
+    'Kidney Disease': ['age','bp','sg','al','su','rbc','pc','pcc','ba','bgr','bu','sc','sod','pot','hemo','pcv'],
+    'Liver Disease': ['Age','Gender','TB','DB','Alkphos','Sgpt','Sgot','TP','ALB','A_G']
+}
+
 @app.route('/')
 def home():
-    return render_template('index.html', form_values={})
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Store user inputs and keep for re-rendering
+    # Convert form inputs to floats
     try:
-        form_values = {k: float(v) for k, v in request.form.items()}
+        user_inputs = {k: float(v) for k, v in zip(request.form.keys(), request.form.values())}
     except ValueError:
-        return render_template('index.html', predictions=[('Error', 'Please enter valid numbers')],
-                               form_values=request.form)
+        return render_template('index.html', predictions=[('Error', 'Please enter valid numbers')])
 
     results = {}
 
-    # Map inputs to model features for each disease
-    disease_feature_map = {
-        'Diabetes': ['glucose', 'insulin', 'bmi', 'age'],
-        'Heart Disease': ['bp', 'cholesterol', 'max_heart_rate', 'oldpeak'],
-        'Kidney Disease': ['sg', 'al', 'su', 'bgr'],
-        'Liver Disease': ['sgpt', 'sgot', 'alkphos', 'bilirubin']
-    }
-
+    # Loop over all diseases
     for disease, (model, scaler) in models.items():
+        features = []
+        for f in feature_order[disease]:
+            features.append(user_inputs.get(f, 0))  # Use 0 if missing
+
         try:
-            features = [form_values[f] for f in disease_feature_map[disease]]
-        except KeyError:
-            return render_template('index.html', predictions=[('Error', f'Missing input for {disease}')],
-                                   form_values=form_values)
+            scaled = scaler.transform([features])
+            prob = model.predict_proba(scaled)[0][1]  # Probability of positive class
+            results[disease] = round(prob * 100, 2)
+        except Exception as e:
+            results[disease] = f"Error: {str(e)}"
 
-        scaled = scaler.transform([features])
-        prob = model.predict_proba(scaled)[0][1]
-        results[disease] = round(prob * 100, 2)
+    # Sort by probability and get top 2
+    top_diseases = sorted(results.items(), key=lambda x: x[1] if isinstance(x[1], float) else 0, reverse=True)[:2]
 
-    top_diseases = sorted(results.items(), key=lambda x: x[1], reverse=True)[:2]
-
-    return render_template('index.html', predictions=top_diseases, form_values=form_values)
+    return render_template('index.html', predictions=top_diseases)
 
 if __name__ == '__main__':
     app.run(debug=True)

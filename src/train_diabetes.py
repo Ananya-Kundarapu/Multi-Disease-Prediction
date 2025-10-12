@@ -9,10 +9,8 @@ from data_preprocessing import preprocess_data
 
 X, y = preprocess_data('data/diabetes.csv', 'Outcome')
 
-# Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Ensemble
 ensemble = VotingClassifier(
     estimators=[
         ('rf', RandomForestClassifier(random_state=42)),
@@ -25,7 +23,6 @@ ensemble = VotingClassifier(
 
 ensemble.fit(X_train, y_train)
 
-# Evaluate
 y_pred = ensemble.predict(X_test)
 print("Diabetes Model Accuracy:", accuracy_score(y_test, y_pred))
 joblib.dump(ensemble, 'models/diabetes_model.pkl')
