@@ -1,20 +1,93 @@
-# 🧠 Multi-Disease Prediction using Ensemble Learning
+🧠 Multi-Disease Prediction using Ensemble Learning
 
-This project predicts the likelihood of multiple diseases — Diabetes, Heart Disease, Kidney Disease, and Liver Disease — using machine learning ensemble models (Random Forest, SVM, XGBoost, KNN).
+This project predicts the likelihood of multiple diseases — Diabetes, Heart Disease, Kidney Disease, and Liver Disease — using machine learning ensemble models such as Random Forest, SVM, XGBoost, and KNN.
+It combines the predictions of all models to identify the most probable disease for a given user’s medical inputs.
 
-## 🚀 Tech Stack
-- Python (Flask)
-- scikit-learn, XGBoost
-- HTML, CSS (Frontend)
-- Joblib (Model persistence)
+🚀 Tech Stack
 
-## 🧩 Features
-- Trains four separate models using medical datasets
-- Single form input for predicting all diseases
-- Displays top probable diseases based on user data
+Python (Flask) – Web Framework
 
-## 🏗️ Setup Instructions
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/Ananya-Kundarapu/Multi-Disease-Prediction.git
-   cd Multi-Disease-Prediction
+scikit-learn, XGBoost – Machine Learning
+
+HTML, CSS – Frontend UI
+
+Joblib – Model persistence and loading
+
+🧩 Features
+
+Predicts multiple diseases using trained ML models
+
+Ensemble-based approach for higher accuracy
+
+Simple Flask web interface for predictions
+
+Takes common health inputs (e.g., Glucose, Blood Pressure, Age, BMI, Cholesterol, etc.)
+
+Displays the most probable disease or Healthy status
+
+📁 Project Structure
+Multi-Disease-Prediction/
+│
+├── data/               # Datasets for all diseases
+├── models/             # Saved models & encoders
+├── src/                # Training scripts
+├── static/             # CSS files
+├── templates/          # HTML templates
+├── app.py              # Flask main app
+├── requirements.txt    # Dependencies
+└── README.md
+
+🏗️ Setup Instructions
+1️⃣ Clone the Repository
+git clone https://github.com/Ananya-Kundarapu/Multi-Disease-Prediction.git
+cd Multi-Disease-Prediction
+
+2️⃣ Create a Virtual Environment
+
+Windows:
+
+python -m venv venv
+venv\Scripts\activate
+
+
+Mac/Linux:
+
+python3 -m venv venv
+source venv/bin/activate
+
+3️⃣ Install Dependencies
+pip install -r requirements.txt
+
+4️⃣ Run the Application
+python app.py
+
+
+Then open your browser at 👉 http://127.0.0.1:5000/
+
+⚙️ How It Works
+
+User enters basic medical details (like Glucose, Cholesterol, etc.)
+
+Inputs are preprocessed and scaled
+
+Each model (Diabetes, Heart, Kidney, Liver) predicts separately
+
+Ensemble logic identifies which disease has the highest probability
+
+The final result is displayed on the screen
+
+📊 Model Performance (Approx.)
+Disease	Accuracy
+Diabetes	~80%
+Heart Disease	~83%
+Kidney Disease	~85%
+Liver Disease	~82%
+🧠 Optional: Re-train Models
+
+To retrain models using new data:
+
+cd src
+python train_diabetes.py
+python train_heart.py
+python train_kidney.py
+python train_liver.py
