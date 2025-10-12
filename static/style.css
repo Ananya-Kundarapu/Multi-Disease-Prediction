@@ -6,8 +6,8 @@ body {
 }
 
 .container {
-    max-width: 700px;
-    margin: 50px auto;
+    max-width: 400px;
+    margin: 30px auto;
     padding: 30px;
     background: #fff;
     border-radius: 10px;
@@ -19,14 +19,19 @@ h1 {
     color: #333;
 }
 
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+h3 {
     margin-top: 20px;
+    color: #444;
 }
 
-input[type="text"], input[type="number"] {
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+input[type="number"] {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -34,7 +39,6 @@ input[type="text"], input[type="number"] {
 }
 
 button {
-    grid-column: span 2;
     padding: 12px;
     background: #28a745;
     color: #fff;
@@ -47,6 +51,13 @@ button {
 
 button:hover {
     background: #218838;
+}
+
+.sample-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .result {
@@ -70,14 +81,4 @@ button:hover {
     padding: 5px 0;
     font-weight: bold;
     font-size: 16px;
-}
-
-@media (max-width: 600px) {
-    form {
-        grid-template-columns: 1fr;
-    }
-
-    button {
-        grid-column: span 1;
-    }
 }

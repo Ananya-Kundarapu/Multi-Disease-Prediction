@@ -8,62 +8,37 @@
 <body>
     <div class="container">
         <h1>Multi Disease Prediction</h1>
-        <form action="/predict" method="post">
 
+        <!-- Sample Input Buttons -->
+        <div class="sample-buttons">
+            <button type="button" onclick="fillSample1()">Sample Input 1</button>
+            <button type="button" onclick="fillSample2()">Sample Input 2</button>
+        </div>
+
+        <form action="/predict" method="post" id="diseaseForm">
             <h3>Diabetes</h3>
-            <input type="number" name="Pregnancies" placeholder="Pregnancies" step="any" required>
-            <input type="number" name="Glucose" placeholder="Glucose Level" step="any" required>
-            <input type="number" name="BloodPressure" placeholder="Blood Pressure" step="any" required>
-            <input type="number" name="SkinThickness" placeholder="Skin Thickness" step="any" required>
-            <input type="number" name="Insulin" placeholder="Insulin" step="any" required>
-            <input type="number" name="BMI" placeholder="BMI" step="any" required>
-            <input type="number" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" step="any" required>
-            <input type="number" name="Age" placeholder="Age" step="any" required>
+            <input type="number" name="glucose" placeholder="Glucose Level (70-200)" step="any" required>
+            <input type="number" name="insulin" placeholder="Insulin (15-276)" step="any" required>
+            <input type="number" name="bmi" placeholder="BMI (18-40)" step="any" required>
+            <input type="number" name="age" placeholder="Age (20-80)" required>
 
             <h3>Heart Disease</h3>
-            <input type="number" name="age" placeholder="Age" step="any" required>
-            <input type="number" name="sex" placeholder="Sex (0=F, 1=M)" step="any" required>
-            <input type="number" name="cp" placeholder="Chest Pain Type" step="any" required>
-            <input type="number" name="trestbps" placeholder="Resting Blood Pressure" step="any" required>
-            <input type="number" name="chol" placeholder="Cholesterol" step="any" required>
-            <input type="number" name="fbs" placeholder="Fasting Blood Sugar" step="any" required>
-            <input type="number" name="restecg" placeholder="Resting ECG" step="any" required>
-            <input type="number" name="thalach" placeholder="Max Heart Rate" step="any" required>
-            <input type="number" name="exang" placeholder="Exercise Induced Angina" step="any" required>
-            <input type="number" name="oldpeak" placeholder="Oldpeak" step="any" required>
-            <input type="number" name="slope" placeholder="Slope" step="any" required>
-            <input type="number" name="ca" placeholder="CA" step="any" required>
-            <input type="number" name="thal" placeholder="Thal" step="any" required>
+            <input type="number" name="bp" placeholder="Blood Pressure (80-180)" step="any" required>
+            <input type="number" name="cholesterol" placeholder="Cholesterol (150-300)" step="any" required>
+            <input type="number" name="max_heart_rate" placeholder="Max Heart Rate (60-200)" step="any" required>
+            <input type="number" name="oldpeak" placeholder="Oldpeak (0-6)" step="any" required>
 
             <h3>Kidney Disease</h3>
-            <input type="number" name="age" placeholder="Age" step="any" required>
-            <input type="number" name="bp" placeholder="Blood Pressure" step="any" required>
-            <input type="number" name="sg" placeholder="Specific Gravity" step="any" required>
-            <input type="number" name="al" placeholder="Albumin" step="any" required>
-            <input type="number" name="su" placeholder="Sugar" step="any" required>
-            <input type="number" name="rbc" placeholder="Red Blood Cells" step="any" required>
-            <input type="number" name="pc" placeholder="Pus Cell" step="any" required>
-            <input type="number" name="pcc" placeholder="Pus Cell Clumps" step="any" required>
-            <input type="number" name="ba" placeholder="Bacteria" step="any" required>
-            <input type="number" name="bgr" placeholder="Blood Glucose Random" step="any" required>
-            <input type="number" name="bu" placeholder="Blood Urea" step="any" required>
-            <input type="number" name="sc" placeholder="Serum Creatinine" step="any" required>
-            <input type="number" name="sod" placeholder="Sodium" step="any" required>
-            <input type="number" name="pot" placeholder="Potassium" step="any" required>
-            <input type="number" name="hemo" placeholder="Hemoglobin" step="any" required>
-            <input type="number" name="pcv" placeholder="Packed Cell Volume" step="any" required>
+            <input type="number" name="sg" placeholder="Specific Gravity (1.005-1.030)" step="any" required>
+            <input type="number" name="al" placeholder="Albumin (0-5)" step="any" required>
+            <input type="number" name="su" placeholder="Sugar (0-5)" step="any" required>
+            <input type="number" name="bgr" placeholder="Blood Glucose Random (70-300)" step="any" required>
 
             <h3>Liver Disease</h3>
-            <input type="number" name="Age" placeholder="Age" step="any" required>
-            <input type="number" name="Gender" placeholder="Gender (0=F, 1=M)" step="any" required>
-            <input type="number" name="TB" placeholder="Total Bilirubin" step="any" required>
-            <input type="number" name="DB" placeholder="Direct Bilirubin" step="any" required>
-            <input type="number" name="Alkphos" placeholder="Alkaline Phosphatase" step="any" required>
-            <input type="number" name="Sgpt" placeholder="SGPT" step="any" required>
-            <input type="number" name="Sgot" placeholder="SGOT" step="any" required>
-            <input type="number" name="TP" placeholder="Total Protein" step="any" required>
-            <input type="number" name="ALB" placeholder="Albumin" step="any" required>
-            <input type="number" name="A_G" placeholder="Albumin/Globulin Ratio" step="any" required>
+            <input type="number" name="sgpt" placeholder="SGPT (10-60)" step="any" required>
+            <input type="number" name="sgot" placeholder="SGOT (10-50)" step="any" required>
+            <input type="number" name="alkphos" placeholder="Alkaline Phosphatase (45-120)" step="any" required>
+            <input type="number" name="bilirubin" placeholder="Bilirubin (0.1-1.2)" step="any" required>
 
             <button type="submit">Predict</button>
         </form>
@@ -79,5 +54,23 @@
             </div>
         {% endif %}
     </div>
+
+    <script>
+        function fillSample1() {
+            const form = document.getElementById('diseaseForm');
+            const values = [120, 100, 25, 45, 130, 200, 150, 1.5, 1.020, 2, 1, 140, 35, 30, 100, 0.8];
+            [...form.elements].forEach((el, i) => {
+                if (el.tagName === "INPUT") el.value = values[i];
+            });
+        }
+
+        function fillSample2() {
+            const form = document.getElementById('diseaseForm');
+            const values = [180, 150, 30, 55, 150, 240, 170, 2.2, 1.010, 1, 0, 180, 50, 40, 120, 1.0];
+            [...form.elements].forEach((el, i) => {
+                if (el.tagName === "INPUT") el.value = values[i];
+            });
+        }
+    </script>
 </body>
 </html>
