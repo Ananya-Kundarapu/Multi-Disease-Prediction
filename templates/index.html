@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Multi Disease Prediction</h1>
+        <form action="/predict" method="post">
+
+            <h3>Diabetes</h3>
+            <input type="number" name="glucose" placeholder="Glucose Level" step="any" required>
+            <input type="number" name="insulin" placeholder="Insulin" step="any" required>
+            <input type="number" name="bmi" placeholder="BMI" step="any" required>
+            <input type="number" name="age" placeholder="Age" required>
+
+            <h3>Heart Disease</h3>
+            <input type="number" name="bp" placeholder="Blood Pressure" step="any" required>
+            <input type="number" name="cholesterol" placeholder="Cholesterol" step="any" required>
+            <input type="number" name="max_heart_rate" placeholder="Max Heart Rate" step="any" required>
+            <input type="number" name="oldpeak" placeholder="Oldpeak" step="any" required>
+
+            <h3>Kidney Disease</h3>
+            <input type="number" name="sg" placeholder="Specific Gravity" step="any" required>
+            <input type="number" name="al" placeholder="Albumin" step="any" required>
+            <input type="number" name="su" placeholder="Sugar" step="any" required>
+            <input type="number" name="bgr" placeholder="Blood Glucose Random" step="any" required>
+
+            <h3>Liver Disease</h3>
+            <input type="number" name="sgpt" placeholder="SGPT" step="any" required>
+            <input type="number" name="sgot" placeholder="SGOT" step="any" required>
+            <input type="number" name="alkphos" placeholder="Alkaline Phosphotase" step="any" required>
+            <input type="number" name="bilirubin" placeholder="Bilirubin" step="any" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predictions %}
+            <div class="result">
+                <h2>Top Disease Predictions:</h2>
+                <ul>
+                    {% for disease, prob in predictions %}
+                        <li>{{ disease }} – {{ prob }}%</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
