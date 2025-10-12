@@ -17,28 +17,44 @@
 
         <form action="/predict" method="post" id="diseaseForm">
             <h3>Diabetes</h3>
-            <input type="number" name="glucose" placeholder="Glucose Level (70-200)" step="any" required>
-            <input type="number" name="insulin" placeholder="Insulin (15-276)" step="any" required>
-            <input type="number" name="bmi" placeholder="BMI (18-40)" step="any" required>
-            <input type="number" name="age" placeholder="Age (20-80)" required>
+            <input type="number" name="glucose" placeholder="Glucose Level (70-200)" step="any" required
+                   value="{{ form_values.glucose if form_values else '' }}">
+            <input type="number" name="insulin" placeholder="Insulin (15-276)" step="any" required
+                   value="{{ form_values.insulin if form_values else '' }}">
+            <input type="number" name="bmi" placeholder="BMI (18-40)" step="any" required
+                   value="{{ form_values.bmi if form_values else '' }}">
+            <input type="number" name="age" placeholder="Age (20-80)" required
+                   value="{{ form_values.age if form_values else '' }}">
 
             <h3>Heart Disease</h3>
-            <input type="number" name="bp" placeholder="Blood Pressure (80-180)" step="any" required>
-            <input type="number" name="cholesterol" placeholder="Cholesterol (150-300)" step="any" required>
-            <input type="number" name="max_heart_rate" placeholder="Max Heart Rate (60-200)" step="any" required>
-            <input type="number" name="oldpeak" placeholder="Oldpeak (0-6)" step="any" required>
+            <input type="number" name="bp" placeholder="Blood Pressure (80-180)" step="any" required
+                   value="{{ form_values.bp if form_values else '' }}">
+            <input type="number" name="cholesterol" placeholder="Cholesterol (150-300)" step="any" required
+                   value="{{ form_values.cholesterol if form_values else '' }}">
+            <input type="number" name="max_heart_rate" placeholder="Max Heart Rate (60-200)" step="any" required
+                   value="{{ form_values.max_heart_rate if form_values else '' }}">
+            <input type="number" name="oldpeak" placeholder="Oldpeak (0-6)" step="any" required
+                   value="{{ form_values.oldpeak if form_values else '' }}">
 
             <h3>Kidney Disease</h3>
-            <input type="number" name="sg" placeholder="Specific Gravity (1.005-1.030)" step="any" required>
-            <input type="number" name="al" placeholder="Albumin (0-5)" step="any" required>
-            <input type="number" name="su" placeholder="Sugar (0-5)" step="any" required>
-            <input type="number" name="bgr" placeholder="Blood Glucose Random (70-300)" step="any" required>
+            <input type="number" name="sg" placeholder="Specific Gravity (1.005-1.030)" step="any" required
+                   value="{{ form_values.sg if form_values else '' }}">
+            <input type="number" name="al" placeholder="Albumin (0-5)" step="any" required
+                   value="{{ form_values.al if form_values else '' }}">
+            <input type="number" name="su" placeholder="Sugar (0-5)" step="any" required
+                   value="{{ form_values.su if form_values else '' }}">
+            <input type="number" name="bgr" placeholder="Blood Glucose Random (70-300)" step="any" required
+                   value="{{ form_values.bgr if form_values else '' }}">
 
             <h3>Liver Disease</h3>
-            <input type="number" name="sgpt" placeholder="SGPT (10-60)" step="any" required>
-            <input type="number" name="sgot" placeholder="SGOT (10-50)" step="any" required>
-            <input type="number" name="alkphos" placeholder="Alkaline Phosphatase (45-120)" step="any" required>
-            <input type="number" name="bilirubin" placeholder="Bilirubin (0.1-1.2)" step="any" required>
+            <input type="number" name="sgpt" placeholder="SGPT (10-60)" step="any" required
+                   value="{{ form_values.sgpt if form_values else '' }}">
+            <input type="number" name="sgot" placeholder="SGOT (10-50)" step="any" required
+                   value="{{ form_values.sgot if form_values else '' }}">
+            <input type="number" name="alkphos" placeholder="Alkaline Phosphatase (45-120)" step="any" required
+                   value="{{ form_values.alkphos if form_values else '' }}">
+            <input type="number" name="bilirubin" placeholder="Bilirubin (0.1-1.2)" step="any" required
+                   value="{{ form_values.bilirubin if form_values else '' }}">
 
             <button type="submit">Predict</button>
         </form>
