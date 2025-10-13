@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
 import joblib
 import os
+import warnings
+
+warnings.filterwarnings("ignore", category=UserWarning)
 
 app = Flask(__name__)
 
-# Directories
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
@@ -63,8 +65,7 @@ def predict():
         except Exception as e:
             results[disease] = f"Error: {str(e)}"
 
-    # Sort by probability and get top 2
-    top_diseases = sorted(results.items(), key=lambda x: x[1] if isinstance(x[1], float) else 0, reverse=True)[:2]
+    top_diseases = sorted(results.items(), key=lambda x: x[1] if isinstance(x[1], float) else 0, reverse=True)[:4]
 
     return render_template('index.html', predictions=top_diseases)
 

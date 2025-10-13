@@ -2,124 +2,508 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Multi Disease Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPredict – Multi-Disease AI Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<div class="container">
-    <h1>Multi Disease Prediction</h1>
     
-    <div class="sample-buttons">
-        <button type="button" onclick="fillSample1()">Sample Input 1</button>
-        <button type="button" onclick="fillSample2()">Sample Input 2</button>
+    <header class="tomato-header">
+        <div class="container">
+            <div class="header-inner">
+<a href="#" class="logo">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="MedPredict Logo" class="logo-image">
+    <span class="logo-text">MedPredict</span>
+</a>
+                <nav class="tomato-nav">
+                    <a href="#how-it-works">How it Works</a>
+                    <a href="#analysis">Try Prediction</a>
+                    <a href="#cta-banner">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">Predict Major Health Risks</h1>
+                        <p class="hero-description">
+                         Multi-disease risk prediction platform that helps you assess your likelihood of Diabetes, Heart, Kidney, and Liver diseases. 
+                         Enter your health metrics and get instant, easy-to-understand results.
+                        </p>
+
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#analysis" class="try-analysis">Try Prediction ➜</a>
+                    </div>
+                </div>
+
+<div class="hero-images">
+    <div class="image-grid">
+        <div class="image-card image-card-tall image-card-green">
+            <img src="{{ url_for('static', filename='Image1.png') }}" alt="Medical image 1: Healthy" class="card-image">
+            <div class="image-label">Healthy</div>
+        </div>
+        <div class="image-card image-card-short image-card-empty">
+            <img src="{{ url_for('static', filename='Image2.png') }}" alt="Medical image 2: In Process" class="card-image">
+        </div>
+        <div class="image-card image-card-short image-card-empty">
+            <img src="{{ url_for('static', filename='Image3.png') }}" alt="Medical image 3: Check-up" class="card-image">
+        </div>
+        <div class="image-card image-card-tall image-card-red">
+            <img src="{{ url_for('static', filename='Image4.png') }}" alt="Medical image 4: Growing Risk" class="card-image">
+            <div class="image-label">Predict</div>
+        </div>
     </div>
+</div>
+            </div>
 
-    <form action="/predict" method="post" id="diseaseForm">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Multi-Disease Prediction</h3>
+<p class="feature-description">
+    Predict your risk for Diabetes, Heart, Kidney, and Liver diseases using validated predictive models.
+</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <div class="feature-text">
+<h3>Instant Results</h3>
+<p class="feature-description">
+    Get clear, numerical risk scores within seconds after entering your health data.
+</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
+                    <div class="feature-text">
+<h3>User-Friendly Interface</h3>
+<p class="feature-description">
+    Intuitive and easy-to-use forms designed for anyone to input health metrics and understand results.
+</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div class="feature-text">
+<h3>Track & Analyze</h3>
+<p class="feature-description">
+    View your risk patterns, track previous submissions, and monitor changes over time.
+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Diabetes Inputs -->
-        <h3>Diabetes</h3>
-        <input type="number" name="Pregnancies" placeholder="Pregnancies" step="any" required value="{{ request.form.get('Pregnancies', '') }}">
-        <input type="number" name="Glucose" placeholder="Glucose Level (70-200)" step="any" required value="{{ request.form.get('Glucose', '') }}">
-        <input type="number" name="BloodPressure" placeholder="Blood Pressure (80-180)" step="any" required value="{{ request.form.get('BloodPressure', '') }}">
-        <input type="number" name="SkinThickness" placeholder="Skin Thickness (0-50)" step="any" required value="{{ request.form.get('SkinThickness', '') }}">
-        <input type="number" name="Insulin" placeholder="Insulin (15-276)" step="any" required value="{{ request.form.get('Insulin', '') }}">
-        <input type="number" name="BMI" placeholder="BMI (18-40)" step="any" required value="{{ request.form.get('BMI', '') }}">
-        <input type="number" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function (0.0-2.5)" step="any" required value="{{ request.form.get('DiabetesPedigreeFunction', '') }}">
-        <input type="number" name="Age" placeholder="Age (20-80)" step="any" required value="{{ request.form.get('Age', '') }}">
+    <section id="analysis" class="section prediction-section">
+        <div class="container main-prediction-container">
+            <div class="prediction-app-header">
+                <h2>Multi-Disease AI Prediction</h2>
+                <p>Use our machine learning models to predict the risk of major chronic diseases.</p>
+            </div>
+<header class="simple-model-header">
+    <nav class="simple-model-nav">
+        <a href="#" class="simple-nav-item active">
+            <svg class="simple-nav-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Predict</span>
+        </a>
+        <a href="#" class="simple-nav-item">
+            <svg class="simple-nav-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="simple-nav-item">
+            <svg class="simple-nav-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 0 0 0-16M12 20v2M12 4V2M15 4.75l-0.66 0.94M9 4.75l0.66 0.94M15.25 10l0.94 -0.66M8.75 10l-0.94 -0.66M17.65 13.25l0.36 0.92M6.35 13.25l-0.36 0.92M20 12h2M4 12H2"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>Data Insights</span>
+        </a>
+        <a href="#" class="simple-nav-item">
+            <svg class="simple-nav-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14V4h16v10z"/><path d="M12 4l-4 4-2 2"/><path d="M12 4l4 4 2 2"/><path d="M12 20v-6"/><path d="M12 20h2"/><path d="M12 20h-2"/></svg>
+            <span>Features</span>
+        </a>
+        <a href="#" class="simple-nav-item">
+            <svg class="simple-nav-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M12 4a8 8 0 0 0 8 8 8 8 0 0 0-8 8V4z"/></svg>
+            <span>Models</span>
+        </a>
+    </nav>
+</header>
 
-        <!-- Heart Disease Inputs -->
-        <h3>Heart Disease</h3>
-        <input type="number" name="age" placeholder="Age (30-80)" step="any" required value="{{ request.form.get('age', '') }}">
-        <input type="number" name="sex" placeholder="Sex (0=Female,1=Male)" step="any" required value="{{ request.form.get('sex', '') }}">
-        <input type="number" name="cp" placeholder="Chest Pain Type (0-3)" step="any" required value="{{ request.form.get('cp', '') }}">
-        <input type="number" name="trestbps" placeholder="Resting BP (90-180)" step="any" required value="{{ request.form.get('trestbps', '') }}">
-        <input type="number" name="chol" placeholder="Cholesterol (150-300)" step="any" required value="{{ request.form.get('chol', '') }}">
-        <input type="number" name="fbs" placeholder="Fasting Blood Sugar >120mg/dl (0 or 1)" step="any" required value="{{ request.form.get('fbs', '') }}">
-        <input type="number" name="restecg" placeholder="Resting ECG (0-2)" step="any" required value="{{ request.form.get('restecg', '') }}">
-        <input type="number" name="thalach" placeholder="Max Heart Rate (60-200)" step="any" required value="{{ request.form.get('thalach', '') }}">
-        <input type="number" name="exang" placeholder="Exercise Induced Angina (0 or 1)" step="any" required value="{{ request.form.get('exang', '') }}">
-        <input type="number" name="oldpeak" placeholder="Oldpeak (0-6)" step="any" required value="{{ request.form.get('oldpeak', '') }}">
-        <input type="number" name="slope" placeholder="Slope of ST segment (0-2)" step="any" required value="{{ request.form.get('slope', '') }}">
-        <input type="number" name="ca" placeholder="Number of major vessels (0-3)" step="any" required value="{{ request.form.get('ca', '') }}">
-        <input type="number" name="thal" placeholder="Thalassemia (1-3)" step="any" required value="{{ request.form.get('thal', '') }}">
+            <div class="main-content-grid">      
+                <div class="form-card card">
+                    <div class="card-header">
+                        <svg class="header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4.418 0-8 2.015-8 4.5V20h16v-1.5c0-2.485-3.582-4.5-8-4.5z"/>
+                        </svg>
+                        <h2 class="header-title">Patient Information</h2>
+                    </div>
 
-        <!-- Kidney Disease Inputs -->
-        <h3>Kidney Disease</h3>
-        <input type="number" name="bp" placeholder="Blood Pressure (80-180)" step="any" required value="{{ request.form.get('bp', '') }}">
-        <input type="number" name="sg" placeholder="Specific Gravity (1.005-1.030)" step="any" required value="{{ request.form.get('sg', '') }}">
-        <input type="number" name="al" placeholder="Albumin (0-5)" step="any" required value="{{ request.form.get('al', '') }}">
-        <input type="number" name="su" placeholder="Sugar (0-5)" step="any" required value="{{ request.form.get('su', '') }}">
-        <input type="number" name="rbc" placeholder="Red Blood Cells (0=normal,1=abnormal)" step="any" required value="{{ request.form.get('rbc', '') }}">
-        <input type="number" name="pc" placeholder="Pus Cell (0=normal,1=abnormal)" step="any" required value="{{ request.form.get('pc', '') }}">
-        <input type="number" name="pcc" placeholder="Pus Cell Clumps (0 or 1)" step="any" required value="{{ request.form.get('pcc', '') }}">
-        <input type="number" name="ba" placeholder="Bacteria (0 or 1)" step="any" required value="{{ request.form.get('ba', '') }}">
-        <input type="number" name="bgr" placeholder="Blood Glucose Random (70-300)" step="any" required value="{{ request.form.get('bgr', '') }}">
-        <input type="number" name="bu" placeholder="Blood Urea (10-50)" step="any" required value="{{ request.form.get('bu', '') }}">
-        <input type="number" name="sc" placeholder="Serum Creatinine (0.5-5.0)" step="any" required value="{{ request.form.get('sc', '') }}">
-        <input type="number" name="sod" placeholder="Sodium (130-145)" step="any" required value="{{ request.form.get('sod', '') }}">
-        <input type="number" name="pot" placeholder="Potassium (3.5-6.5)" step="any" required value="{{ request.form.get('pot', '') }}">
-        <input type="number" name="hemo" placeholder="Hemoglobin (10-17)" step="any" required value="{{ request.form.get('hemo', '') }}">
-        <input type="number" name="pcv" placeholder="Packed Cell Volume (25-50)" step="any" required value="{{ request.form.get('pcv', '') }}">
-
-        <!-- Liver Disease Inputs -->
-        <h3>Liver Disease</h3>
-        <input type="number" name="Gender" placeholder="Gender (0=Female,1=Male)" step="any" required value="{{ request.form.get('Gender', '') }}">
-        <input type="number" name="TB" placeholder="Total Bilirubin (0.1-6.0)" step="any" required value="{{ request.form.get('TB', '') }}">
-        <input type="number" name="DB" placeholder="Direct Bilirubin (0-1.0)" step="any" required value="{{ request.form.get('DB', '') }}">
-        <input type="number" name="Alkphos" placeholder="Alkaline Phosphatase (45-150)" step="any" required value="{{ request.form.get('Alkphos', '') }}">
-        <input type="number" name="Sgpt" placeholder="SGPT (10-60)" step="any" required value="{{ request.form.get('Sgpt', '') }}">
-        <input type="number" name="Sgot" placeholder="SGOT (10-50)" step="any" required value="{{ request.form.get('Sgot', '') }}">
-        <input type="number" name="TP" placeholder="Total Protein (4-8)" step="any" required value="{{ request.form.get('TP', '') }}">
-        <input type="number" name="ALB" placeholder="Albumin (2-5)" step="any" required value="{{ request.form.get('ALB', '') }}">
-        <input type="number" name="A_G" placeholder="Albumin/Globulin Ratio (0.8-2.5)" step="any" required value="{{ request.form.get('A_G', '') }}">
-
-        <button type="submit">Predict</button>
-    </form>
-
-    {% if predictions %}
-    <div class="result">
-        <h2>Top Disease Predictions:</h2>
-        <ul>
-            {% for disease, prob in predictions %}
-                <li>{{ disease }} – {{ prob }}%</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
+<form action="/predict#analysis" method="post" id="diseaseForm">
+                            <div id="form-pages">
+                            <div class="form-page" data-page="0">
+<div class="page-header nav-header">
+    <button type="button" class="form-nav-btn prev-btn" onclick="navigateForm(-1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="page-title">
+        <h3 id="disease-name">Diabetes</h3> </div>
+    <button type="button" class="form-nav-btn next-btn" onclick="navigateForm(1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+</div>       
+<div class="input-grid">
+    <label><span>Gender (0=F, 1=M)</span>
+        <input type="number" name="Gender" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('Gender', '1') }}">
+    </label>
+    <label><span>Age (years)</span>
+        <input type="number" name="Age" min="0" max="120" step="1" placeholder="e.g. 0-120" required value="{{ request.form.get('Age', '35') }}">
+    </label>
+    <label><span>Blood Pressure (mmHg)</span>
+        <input type="number" name="BloodPressure" min="70" max="200" step="1" placeholder="70-200" required value="{{ request.form.get('BloodPressure', '120') }}">
+    </label>
+    <label><span>Pregnancies</span>
+        <input type="number" name="Pregnancies" min="0" max="20" step="1" placeholder="0-20" required value="{{ request.form.get('Pregnancies', '2') }}">
+    </label>
+    <label><span>Glucose (mg/dL)</span>
+        <input type="number" name="Glucose" min="70" max="200" step="1" placeholder="70-200" required value="{{ request.form.get('Glucose', '110') }}">
+    </label>
+    <label><span>Skin Thickness (mm)</span>
+        <input type="number" name="SkinThickness" min="10" max="50" step="1" placeholder="10-50" required value="{{ request.form.get('SkinThickness', '25') }}">
+    </label>
+    <label><span>Insulin (µU/mL)</span>
+        <input type="number" name="Insulin" min="15" max="276" step="1" placeholder="15-276" required value="{{ request.form.get('Insulin', '90') }}">
+    </label>
+    <label><span>BMI</span>
+        <input type="number" name="BMI" min="15" max="50" step="0.1" placeholder="15-50" required value="{{ request.form.get('BMI', '28.5') }}">
+    </label>
+    <label><span>Diabetes Pedigree Function</span>
+        <input type="number" name="DiabetesPedigreeFunction" min="0" max="2.5" step="0.01" placeholder="0-2.5" required value="{{ request.form.get('DiabetesPedigreeFunction', '0.45') }}">
+    </label>
+</div>
 </div>
 
+                            <div class="form-page hidden" data-page="1">
+<div class="page-header nav-header">
+    <button type="button" class="form-nav-btn prev-btn" onclick="navigateForm(-1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="page-title">
+        <h3 id="disease-name">Heart Disease</h3> </div>
+    <button type="button" class="form-nav-btn next-btn" onclick="navigateForm(1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+</div>                             
+<div class="input-grid">
+    <label><span>Chest Pain Type (CP)</span>
+        <input type="number" name="cp" min="0" max="3" step="1" placeholder="0-3" required value="{{ request.form.get('cp', '1') }}">
+    </label>
+    <label><span>Resting BP (trestbps)</span>
+        <input type="number" name="trestbps" min="90" max="180" step="1" placeholder="90-180" required value="{{ request.form.get('trestbps', '130') }}">
+    </label>
+    <label><span>Cholesterol (chol)</span>
+        <input type="number" name="chol" min="100" max="600" step="1" placeholder="100-600" required value="{{ request.form.get('chol', '250') }}">
+    </label>
+    <label><span>Fasting Blood Sugar >120 (fbs)</span>
+        <input type="number" name="fbs" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('fbs', '0') }}">
+    </label>
+    <label><span>Resting ECG (restecg)</span>
+        <input type="number" name="restecg" min="0" max="2" step="1" placeholder="0-2" required value="{{ request.form.get('restecg', '1') }}">
+    </label>
+    <label><span>Max Heart Rate (thalach)</span>
+        <input type="number" name="thalach" min="60" max="200" step="1" placeholder="60-200" required value="{{ request.form.get('thalach', '150') }}">
+    </label>
+    <label><span>Exercise Angina (exang)</span>
+        <input type="number" name="exang" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('exang', '0') }}">
+    </label>
+    <label><span>Oldpeak (ST depression)</span>
+        <input type="number" name="oldpeak" min="0" max="6" step="0.1" placeholder="0-6" required value="{{ request.form.get('oldpeak', '1.0') }}">
+    </label>
+    <label><span>Slope of ST segment</span>
+        <input type="number" name="slope" min="0" max="2" step="1" placeholder="0-2" required value="{{ request.form.get('slope', '1') }}">
+    </label>
+    <label><span>Num. Major Vessels (ca)</span>
+        <input type="number" name="ca" min="0" max="3" step="1" placeholder="0-3" required value="{{ request.form.get('ca', '0') }}">
+    </label>
+    <label><span>Thalassemia (thal)</span>
+        <input type="number" name="thal" min="1" max="3" step="1" placeholder="1-3" required value="{{ request.form.get('thal', '2') }}">
+    </label>
+</div>
+                            </div>
+                            
+                            <div class="form-page hidden" data-page="2">
+<div class="page-header nav-header">
+    <button type="button" class="form-nav-btn prev-btn" onclick="navigateForm(-1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="page-title">
+        <h3 id="disease-name">Kidney Disease</h3> </div>
+    <button type="button" class="form-nav-btn next-btn" onclick="navigateForm(1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+</div>                               
+<div class="input-grid">
+    <label><span>Specific Gravity (sg)</span>
+        <input type="number" name="sg" min="1.005" max="1.030" step="0.001" placeholder="1.005-1.030" required value="{{ request.form.get('sg', '1.020') }}">
+    </label>
+    <label><span>Albumin (al)</span>
+        <input type="number" name="al" min="0" max="5" step="1" placeholder="0-5" required value="{{ request.form.get('al', '1') }}">
+    </label>
+    <label><span>Sugar (su)</span>
+        <input type="number" name="su" min="0" max="5" step="1" placeholder="0-5" required value="{{ request.form.get('su', '0') }}">
+    </label>
+    <label><span>Red Blood Cells (rbc) (0=normal, 1=abnormal)</span>
+        <input type="number" name="rbc" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('rbc', '0') }}">
+    </label>
+    <label><span>Pus Cell (pc) (0=normal, 1=abnormal)</span>
+        <input type="number" name="pc" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('pc', '0') }}">
+    </label>
+    <label><span>Pus Cell Clumps (pcc) (0=not present, 1=present)</span>
+        <input type="number" name="pcc" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('pcc', '0') }}">
+    </label>
+    <label><span>Bacteria (ba) (0=not present, 1=present)</span>
+        <input type="number" name="ba" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('ba', '0') }}">
+    </label>
+    <label><span>Blood Glucose Random (bgr)</span>
+        <input type="number" name="bgr" min="70" max="300" step="1" placeholder="70-300" required value="{{ request.form.get('bgr', '120') }}">
+    </label>
+    <label><span>Blood Urea (bu)</span>
+        <input type="number" name="bu" min="10" max="50" step="1" placeholder="10-50" required value="{{ request.form.get('bu', '20') }}">
+    </label>
+    <label><span>Serum Creatinine (sc)</span>
+        <input type="number" name="sc" min="0.5" max="5.0" step="0.1" placeholder="0.5-5.0" required value="{{ request.form.get('sc', '1.0') }}">
+    </label>
+    <label><span>Sodium (sod)</span>
+        <input type="number" name="sod" min="130" max="145" step="1" placeholder="130-145" required value="{{ request.form.get('sod', '138') }}">
+    </label>
+    <label><span>Potassium (pot)</span>
+        <input type="number" name="pot" min="3.5" max="6.5" step="0.1" placeholder="3.5-6.5" required value="{{ request.form.get('pot', '4.5') }}">
+    </label>
+    <label><span>Hemoglobin (hemo)</span>
+        <input type="number" name="hemo" min="10" max="17" step="0.1" placeholder="10-17" required value="{{ request.form.get('hemo', '13.5') }}">
+    </label>
+    <label><span>Packed Cell Volume (pcv)</span>
+        <input type="number" name="pcv" min="25" max="50" step="1" placeholder="25-50" required value="{{ request.form.get('pcv', '40') }}">
+    </label>
+</div>
+                            </div>
+                            
+                            <div class="form-page hidden" data-page="3">
+<div class="page-header nav-header">
+    <button type="button" class="form-nav-btn prev-btn" onclick="navigateForm(-1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="page-title">
+        <h3 id="disease-name">Liver Disease</h3> </div>
+    <button type="button" class="form-nav-btn next-btn" onclick="navigateForm(1)">
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+</div>                
+ <div class="input-grid">
+    <label><span>Total Bilirubin (TB)</span>
+        <input type="number" name="TB" min="0.1" max="6.0" step="0.1" placeholder="0.1-6.0" required value="{{ request.form.get('TB', '1.0') }}">
+    </label>
+    <label><span>Direct Bilirubin (DB)</span>
+        <input type="number" name="DB" min="0" max="1.0" step="0.1" placeholder="0-1.0" required value="{{ request.form.get('DB', '0.2') }}">
+    </label>
+    <label><span>Alkaline Phosphatase (Alkphos)</span>
+        <input type="number" name="Alkphos" min="45" max="150" step="1" placeholder="45-150" required value="{{ request.form.get('Alkphos', '100') }}">
+    </label>
+    <label><span>SGPT (Sgpt)</span>
+        <input type="number" name="Sgpt" min="10" max="60" step="1" placeholder="10-60" required value="{{ request.form.get('Sgpt', '35') }}">
+    </label>
+    <label><span>SGOT (Sgot)</span>
+        <input type="number" name="Sgot" min="10" max="50" step="1" placeholder="10-50" required value="{{ request.form.get('Sgot', '30') }}">
+    </label>
+    <label><span>Total Protein (TP)</span>
+        <input type="number" name="TP" min="4" max="8" step="0.1" placeholder="4-8" required value="{{ request.form.get('TP', '6.5') }}">
+    </label>
+    <label><span>Albumin (ALB)</span>
+        <input type="number" name="ALB" min="2" max="5" step="0.1" placeholder="2-5" required value="{{ request.form.get('ALB', '3.5') }}">
+    </label>
+    <label><span>Albumin/Globulin Ratio (A_G)</span>
+        <input type="number" name="A_G" min="0.8" max="2.5" step="0.1" placeholder="0.8-2.5" required value="{{ request.form.get('A_G', '1.2') }}">
+    </label>
+</div>
+
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="predict-btn" class="hidden"></button>
+                        <div class="predict-btn-wrapper">
+    <button type="button" id="predict-btn-display" onclick="submitCurrentForm()">
+        Predict Liver Disease
+    </button>
+</div>
+                    </form>
+                </div>
+
+                <div class="result-card card">
+                    <h2 class="header-title">Prediction Results</h2>
+                    <div class="prediction-results">
+                       {% if predictions %}
+                            <h3 class="result-title">Top Disease Predictions:</h3>
+                            <ul class="result-list">
+                                {% for disease, prob in predictions %}
+                                    {% set icon = "" %}
+                                    {% if disease == "Heart Disease" %}
+                                        {% set icon = '<svg class="disease-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>' %}
+                                    {% elif disease == "Diabetes" %}
+                                        {% set icon = '<svg class="disease-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2 4 4"/><path d="M20 10V6l-4-4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8"/><path d="M12.5 17.5 16 21l4-4"/><path d="m20 13-4 4-1.5-1.5"/><path d="M15 16l-1-1"/></svg>' %}
+                                    {% elif disease == "Kidney Disease" %}
+                                        {% set icon = '<svg class="disease-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.42-2.8 7-5 9-2.2-2-5-4.58-5-9 0-4.42 2.8-8 5-8 2.2 0 5 3.58 5 8z"/><path d="M15 10c0 2-1 3-2.5 3S10 12 10 10"/><path d="M7 6c-1 0-2 1-2 2v8c0 1 1 2 2 2h10c1 0 2-1 2-2V8c0-1-1-2-2-2z"/></svg>' %}
+                                    {% elif disease == "Liver Disease" %}
+                                        {% set icon = '<svg class="disease-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="orange" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v7c0 1.66 1.34 3 3 3h2c1.66 0 3-1.34 3-3V6a4 4 0 0 0-4-4z"/><path d="M15 13.5v7.5"/><path d="M9 13.5v7.5"/><path d="M18 15h-1"/><path d="M7 15H6"/></svg>' %}
+                                    {% else %}
+                                        {% set icon = '' %}
+                                    {% endif %}
+                                    <li class="result-item">
+                                        {{ icon | safe }}
+                                        <span class="disease-name">{{ disease }}</span>
+                                        <span class="prediction-prob">{{ prob }}%</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            <p class="text-muted">Enter patient information and click "Predict" to see results</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+<p>Our system uses advanced machine learning models to predict Diabetes, Heart, Kidney, and Liver disease risks with high accuracy, helping you monitor your health.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon-wrapper"><svg class="step-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+                    <div class="step-text"><h3>Capture Data</h3><p class="step-description">Collect the required health metrics (e.g., Blood Pressure, Glucose) for the specific disease model.</p></div>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon-wrapper"><svg class="step-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+                    <div class="step-text"><h3>AI Analysis</h3><p class="step-description">Our trained machine learning model analyzes the patient data for risk factors and markers.</p></div>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon-wrapper"><svg class="step-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+                    <div class="step-text"><h3>Risk Prediction</h3><p class="step-description">Get instant risk scores (e.g., Diabetic/Non-Diabetic, High/Low Risk) with confidence metrics.</p></div>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon-wrapper"><svg class="step-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+                    <div class="step-text"><h3>Consultation</h3><p class="step-description">Use the results to facilitate further discussion and early intervention with a medical professional.</p></div>
+                </div>
+            </div>
+
+            <div class="cta-banner" id="cta-banner">
+    <img src="{{ url_for('static', filename='bigi.jpg') }}" alt="Data-Driven Prediction Image">
+                <div class="cta-banner-overlay">
+                    <div class="cta-banner-content">
+                        <h3>Data-Driven Prediction</h3>
+                        <p>Uses trained health models to provide quick and reliable multi-disease risk assessments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-grid">
+                    <div class="footer-section">
+<a href="#" class="logo">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="MedPredict Logo" class="logo-image">
+    <span class="logo-text">MedPredict</span>
+</a>
+                        <p style="font-size: 0.875rem; color: var(--muted-foreground);">
+Empowering patients and doctors with ML-based multi-disease risk prediction technology.
+                        </p>
+                    </div>
+                    <div class="footer-section"><h4>Product</h4><ul><li><a href="#">Features</a></li><li><a href="#">Pricing</a></li><li><a href="#">API</a></li></ul></div>
+                    <div class="footer-section"><h4>Support</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">Help Center</a></li><li><a href="#">Contact</a></li></ul></div>
+                    <div class="footer-section"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li></ul></div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2025 MedPredict. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 <script>
-function fillSample1() {
-    const values = {
-        "Pregnancies": 2, "Glucose": 120, "BloodPressure": 70, "SkinThickness": 20,
-        "Insulin": 80, "BMI": 25, "DiabetesPedigreeFunction": 0.5, "Age": 45,
-        "age": 55, "sex": 1, "cp": 2, "trestbps": 130, "chol": 220, "fbs": 0,
-        "restecg": 1, "thalach": 150, "exang": 0, "oldpeak": 1.0, "slope": 1,
-        "ca": 0, "thal": 2,
-        "bp": 80, "sg": 1.02, "al": 1, "su": 0, "rbc": 0, "pc": 0, "pcc": 0, "ba": 0,
-        "bgr": 140, "bu": 30, "sc": 1.2, "sod": 140, "pot": 4.5, "hemo": 14, "pcv": 40,
-        "Gender": 1, "TB": 1.2, "DB": 0.3, "Alkphos": 80, "Sgpt": 35, "Sgot": 30,
-        "TP": 6.5, "ALB": 3.5, "A_G": 1.2
-    };
-    const form = document.getElementById('diseaseForm');
-    [...form.elements].forEach(el => { if(el.name in values) el.value = values[el.name]; });
+let currentPageIndex = 0;
+const formPages = document.querySelectorAll('.form-page');
+const totalPages = formPages.length;
+const predictSubmitButton = document.getElementById('predict-btn'); 
+const predictDisplayButton = document.getElementById('predict-btn-display'); 
+const diseases = ["Diabetes", "Heart Disease", "Kidney Disease", "Liver Disease"];
+
+function updateFormVisibility() {
+    formPages.forEach((page, index) => {
+        if (index === currentPageIndex) {
+            page.classList.remove('hidden');
+            const diseaseNameElement = page.querySelector('#disease-name');
+            if (diseaseNameElement) {
+                diseaseNameElement.textContent = diseases[currentPageIndex];
+            }
+            updateNavigationButtons(page);
+        } else {
+            page.classList.add('hidden');
+        }
+    });
+
+if (currentPageIndex === totalPages - 1) {
+    predictDisplayButton.style.display = 'inline-block';
+    predictDisplayButton.textContent = `Predict Diseases`;
+} else {
+    predictDisplayButton.style.display = 'none';
+}
 }
 
-function fillSample2() {
-    const values = {
-        "Pregnancies": 3, "Glucose": 150, "BloodPressure": 85, "SkinThickness": 25,
-        "Insulin": 100, "BMI": 30, "DiabetesPedigreeFunction": 1.0, "Age": 50,
-        "age": 60, "sex": 0, "cp": 1, "trestbps": 140, "chol": 240, "fbs": 1,
-        "restecg": 0, "thalach": 160, "exang": 1, "oldpeak": 2.0, "slope": 2,
-        "ca": 1, "thal": 3,
-        "bp": 90, "sg": 1.01, "al": 2, "su": 1, "rbc": 1, "pc": 1, "pcc": 1, "ba": 1,
-        "bgr": 160, "bu": 40, "sc": 1.8, "sod": 138, "pot": 5.0, "hemo": 12, "pcv": 38,
-        "Gender": 0, "TB": 2.0, "DB": 0.5, "Alkphos": 100, "Sgpt": 50, "Sgot": 40,
-        "TP": 7.0, "ALB": 4.0, "A_G": 1.0
-    };
-    const form = document.getElementById('diseaseForm');
-    [...form.elements].forEach(el => { if(el.name in values) el.value = values[el.name]; });
+function updateNavigationButtons(activePage) {
+    const prevBtn = activePage.querySelector('.prev-btn');
+    const nextBtn = activePage.querySelector('.next-btn');
+
+    if (prevBtn) {
+        prevBtn.disabled = currentPageIndex === 0;
+        prevBtn.classList.toggle('disabled', currentPageIndex === 0);
+    }
+
+    if (nextBtn) {
+        nextBtn.disabled = currentPageIndex === totalPages - 1;
+        nextBtn.classList.toggle('disabled', currentPageIndex === totalPages - 1);
+    }
 }
+
+function navigateForm(direction) {
+    const newIndex = currentPageIndex + direction;
+
+    if (newIndex >= 0 && newIndex < totalPages) {
+        currentPageIndex = newIndex;
+        updateFormVisibility();
+    }
+}
+
+function submitCurrentForm() {
+    predictSubmitButton.click();
+}
+updateFormVisibility();
 </script>
 </body>
 </html>
