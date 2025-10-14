@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 import joblib
 import os
 import warnings
+import pandas as pd
+import glob
+import numpy as np
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -10,7 +13,6 @@ app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
-# Load models and scalers
 models = {
     'Diabetes': (
         joblib.load(os.path.join(MODELS_DIR, 'diabetes_model.pkl')),
@@ -30,13 +32,36 @@ models = {
     )
 }
 
-# Feature order must match training
-feature_order = {
-    'Diabetes': ['Pregnancies','Glucose','BloodPressure','SkinThickness','Insulin','BMI','DiabetesPedigreeFunction','Age'],
-    'Heart Disease': ['age','sex','cp','trestbps','chol','fbs','restecg','thalach','exang','oldpeak','slope','ca','thal'],
-    'Kidney Disease': ['age','bp','sg','al','su','rbc','pc','pcc','ba','bgr','bu','sc','sod','pot','hemo','pcv'],
-    'Liver Disease': ['Age','Gender','TB','DB','Alkphos','Sgpt','Sgot','TP','ALB','A_G']
-}
+def apply_label_encoders(disease_name, df):
+    base_name = disease_name.split(' ')[0].lower()
+    encoders = glob.glob(os.path.join(MODELS_DIR, f"{base_name}_*_encoder.pkl"))
+
+    for enc_path in encoders:
+        col_name = os.path.basename(enc_path).replace(f"{base_name}_", "").replace("_encoder.pkl", "")
+        if col_name in df.columns:
+            le = joblib.load(enc_path)
+            try:
+                df[col_name] = le.transform(df[col_name])
+            except ValueError:
+                df[col_name] = le.transform([le.classes_[0]] * len(df))
+    return df
+
+def prepare_features(df_input, model):
+    try:
+        model_features = list(model.feature_names_in_)
+    except AttributeError:
+        return df_input
+
+    for col in model_features:
+        if col not in df_input.columns:
+            df_input[col] = 0.0
+
+    df_input = df_input[model_features].copy()
+
+    for col in df_input.columns:
+        df_input[col] = pd.to_numeric(df_input[col], errors='coerce').fillna(0.0)
+
+    return df_input
 
 @app.route('/')
 def home():
@@ -44,28 +69,37 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Convert form inputs to floats
     try:
-        user_inputs = {k: float(v) for k, v in zip(request.form.keys(), request.form.values())}
-    except ValueError:
-        return render_template('index.html', predictions=[('Error', 'Please enter valid numbers')])
+        user_inputs = {k: [v] for k, v in request.form.items()}
+        df_input = pd.DataFrame(user_inputs)
+        results = {}
 
-    results = {}
+        for disease, (model, scaler) in models.items():
+            disease_df = prepare_features(df_input.copy(), model)
 
-    # Loop over all diseases
-    for disease, (model, scaler) in models.items():
-        features = []
-        for f in feature_order[disease]:
-            features.append(user_inputs.get(f, 0))  # Use 0 if missing
+            disease_df = apply_label_encoders(disease, disease_df)
 
-        try:
-            scaled = scaler.transform([features])
-            prob = model.predict_proba(scaled)[0][1]  # Probability of positive class
-            results[disease] = round(prob * 100, 2)
-        except Exception as e:
-            results[disease] = f"Error: {str(e)}"
+            try:
+                scaler_features = list(scaler.feature_names_in_)
+                for col in scaler_features:
+                    if col not in disease_df.columns:
+                        disease_df[col] = 0.0
+                disease_df[scaler_features] = scaler.transform(disease_df[scaler_features])
+            except AttributeError:
+                pass
 
-    top_diseases = sorted(results.items(), key=lambda x: x[1] if isinstance(x[1], float) else 0, reverse=True)[:4]
+            if hasattr(model, "predict_proba"):
+                prob = model.predict_proba(disease_df)[0][1] * 100
+                results[disease] = round(prob, 2)
+            else:
+                pred = model.predict(disease_df)[0]
+                results[disease] = round(float(pred), 2)
+
+    except Exception as e:
+        print(f"Prediction Error: {e}")
+        return render_template('index.html', predictions=[('Error', str(e))])
+
+    top_diseases = sorted(results.items(), key=lambda x: x[1], reverse=True)[:4]
 
     return render_template('index.html', predictions=top_diseases)
 

@@ -31,7 +31,7 @@ h1, h2, h3, h4 {
     font-weight: 500;
 }
 
-a {
+a{
     color: var(--link-color);
     text-decoration: none;
 }
@@ -409,34 +409,51 @@ input:focus {
     width: 3rem;
     height: 3rem;
     color: var(--border-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.7rem;
 }
 
 .result-title {
     font-size: 1.125rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.prediction-results {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 2px;
+}
+
+.result-list .result-item {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0;  
+    margin: 0;  
+    border-bottom: 1px dashed #eee;
+    font-size: 1.1rem;
 }
 
 .result-list {
     list-style: none;
     padding: 0;
-    margin-top: 0.5rem;
-    text-align: left;
-    width: 100%;
-    max-width: 300px;
+    margin: 0;
+    gap: 0;
 }
 
-.result-list li {
-    padding: 0.75rem 0;
-    border-bottom: 1px dashed var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-}
-
-.result-list li:last-child {
+.result-list .result-item:last-child {
     border-bottom: none;
+}
+
+.disease-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    flex-shrink: 0;
 }
 
 .prediction-prob {
@@ -732,7 +749,7 @@ html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0; 
+    padding: 10px 0;
     border-bottom: 1px solid #e5e7eb; 
     margin-bottom: 20px;
 }
@@ -743,7 +760,7 @@ html {
 }
 
 .page-header.nav-header h3 {
-    margin: 0; 
+    margin: 0;
     font-size: 1.25rem; 
     font-weight: 600;
 }
@@ -771,7 +788,7 @@ html {
 .form-nav-btn.disabled {
     color: #a1a1aa; 
     cursor: default;
-    opacity: 0.5; 
+    opacity: 0.5;
     background: none;
 }
 
@@ -793,7 +810,7 @@ html {
     background-color: #1a1a1a;
     color: #ffffff;
     font-size: 16px;
-    font-weight: 600; 
+    font-weight: 600;
     text-transform: capitalize;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -801,40 +818,4 @@ html {
 
 #predict-btn-display:hover {
     background-color: #333333;
-}
-.prediction-results {
-    /* Ensures the result area is contained and has consistent padding */
-    padding: 1rem; 
-}
-
-.result-list {
-    /* Target the list that contains predictions */
-    list-style: none; 
-    padding: 0;
-    margin: 0; /* REMOVE DEFAULT MARGINS */
-}
-
-.result-list .result-item {
-    display: flex;
-    align-items: center;
-    /* REDUCE THE VERTICAL SPACE between items */
-    padding: -0.6rem 0; /* Adjusted from 0.5rem 0 to give a slight buffer */
-    border-bottom: 1px dashed #eee; /* Light dashed line for separation */
-    font-size: 1.1rem;
-}
-
-.result-list .result-item:last-child {
-    border-bottom: none; /* No line under the last item */
-}
-
-.disease-icon {
-    width: 0.7rem;
-    height: 0.7rem;
-    margin-right: 0.75rem;
-    flex-shrink: 0;
-}
-
-.prediction-prob {
-    margin-left: auto;
-    font-weight: 700;
 }
