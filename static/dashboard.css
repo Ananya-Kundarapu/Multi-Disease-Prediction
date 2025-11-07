@@ -1,0 +1,164 @@
+.dashboard-container {
+  color: #111;
+}
+
+.dashboard-container, 
+.dashboard-container * {
+  font-family: inherit;
+}
+
+.dashboard-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 25px;
+}
+
+.metric-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-icon {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.metric-card h1 {
+  margin: 10px 0;
+  font-size: 2.2rem;
+  color: #111;
+}
+
+.metric-bar {
+  height: 6px;
+  background: #e4e9f7;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.metric-bar .fill {
+  height: 6px;
+  border-radius: 3px;
+  background: #4460ef;
+}
+
+.metric-card p {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.analytics-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.confusion-card,
+.training-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Confusion Matrix Grid */
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.matrix-header {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.matrix-cell {
+  padding: 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.matrix-cell span {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.matrix-cell.tn { background: #d6f9da; }
+.matrix-cell.fp { background: #fff7b3; }
+.matrix-cell.fn { background: #ffd6d6; }
+.matrix-cell.tp { background: #d6fff1; }
+
+.bar-chart {
+  position: relative;
+  height: 250px;
+  margin-top: 25px;
+}
+.bar-chart canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.bar {
+  width: 55px;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+  font-size: 0.8rem;
+  color: #111;
+  padding-top: 5px;
+}
+
+.bar.green { background: #72e3a1; }
+.bar.yellow { background: #ffea7a; }
+.bar.red { background: #ff9b9b; }
+
+/* Training Chart */
+.training-card canvas {
+  width: 100%;
+  height: 250px;
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 900px) {
+  .analytics-section {
+    grid-template-columns: 1fr;
+  }
+  .metrics-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.dashboard-section {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="dashboard-section">
+    <main class="dashboard-container">
+      <section class="metrics-row">
+        <div class="metric-card accuracy">
+          <div class="metric-header">
+            <h3>Accuracy</h3>
+            <span class="metric-icon">✅</span>
+          </div>
+          <h1>92.3%</h1>
+          <div class="metric-bar"><div class="fill" style="width:92%;"></div></div>
+          <p>Overall correct predictions</p>
+        </div>
+
+        <div class="metric-card precision">
+          <div class="metric-header">
+            <h3>Precision</h3>
+            <span class="metric-icon">⚡</span>
+          </div>
+          <h1>89.7%</h1>
+          <div class="metric-bar"><div class="fill" style="width:89%;"></div></div>
+          <p>True positives / (TP + FP)</p>
+        </div>
+
+        <div class="metric-card recall">
+          <div class="metric-header">
+            <h3>Recall</h3>
+            <span class="metric-icon">📈</span>
+          </div>
+          <h1>94.1%</h1>
+          <div class="metric-bar"><div class="fill" style="width:94%;"></div></div>
+          <p>True positives / (TP + FN)</p>
+        </div>
+
+        <div class="metric-card f1score">
+          <div class="metric-header">
+            <h3>F1 Score</h3>
+            <span class="metric-icon">🏅</span>
+          </div>
+          <h1>91.8%</h1>
+          <div class="metric-bar"><div class="fill" style="width:91%;"></div></div>
+          <p>Harmonic mean of precision and recall</p>
+        </div>
+      </section>
+      <section class="analytics-section">
+        <div class="confusion-card">
+          <h3>Confusion Matrix</h3>
+          <div class="matrix-grid">
+            <div class="matrix-header">Predicted</div>
+            <div class="matrix-header">Actual</div>
+            <div class="matrix-cell tn">142<br><span>TN</span></div>
+            <div class="matrix-cell fp">18<br><span>FP</span></div>
+            <div class="matrix-cell fn">12<br><span>FN</span></div>
+            <div class="matrix-cell tp">96<br><span>TP</span></div>
+          </div>
+
+          <!-- ✅ Chart.js Confusion Matrix -->
+          <div class="bar-chart">
+            <canvas id="confusionChart"></canvas>
+          </div>
+        </div>
+
+        <div class="training-card">
+          <h3>Training History</h3>
+          <div class="bar-chart">
+            <canvas id="trainingChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function initializeDashboardCharts() {
+  console.log("✅ Dashboard Charts Initialized");
+
+  const confusionCanvas = document.getElementById('confusionChart');
+  if (confusionCanvas) {
+    const ctx2 = confusionCanvas.getContext('2d');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['True Neg', 'False Pos', 'False Neg', 'True Pos'],
+        datasets: [{
+          label: 'Confusion Matrix',
+          data: [142, 18, 12, 96],
+          backgroundColor: ['#72e3a1', '#ffea7a', '#ff9b9b', '#72e3a1'],
+          hoverBackgroundColor: ['#56d88c', '#ffe55c', '#ff7878', '#56d88c'],
+          borderColor: ['#4cc884', '#e6d54e', '#e67a7a', '#4cc884'],
+          borderWidth: 1,
+          borderRadius: 8,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 1000, easing: 'easeOutBounce' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            titleColor: '#000',
+            bodyColor: '#000',
+            borderColor: '#ddd',
+            borderWidth: 1,
+            displayColors: false,
+            callbacks: {
+              title: (ctx) => ctx[0].label,
+              label: (ctx) => `Value: ${ctx.formattedValue}`
+            }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { color: '#555' }, grid: { color: '#eee' } },
+          x: { ticks: { color: '#555' }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  const trainingCanvas = document.getElementById('trainingChart');
+  if (trainingCanvas) {
+    const ctx = trainingCanvas.getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['1','2','3','4','5','6','7','8'],
+        datasets: [
+          {
+            label: 'Accuracy',
+            data: [0.72,0.8,0.85,0.88,0.9,0.92,0.93,0.94],
+            borderColor: '#4460ef',
+            backgroundColor: 'rgba(68,96,239,0.2)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: 'Loss',
+            data: [1.0,0.9,0.75,0.6,0.45,0.35,0.3,0.2],
+            borderColor: '#f25f5c',
+            backgroundColor: 'rgba(242,95,92,0.2)',
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 1200, easing: 'easeOutCubic' },
+        plugins: { legend: { position: 'top' } },
+        scales: {
+          y: { beginAtZero: false, ticks: { color: '#555' }, grid: { color: '#eee' } },
+          x: { ticks: { color: '#555' }, grid: { display: false } }
+        }
+      }
+    });
+  }
+}
+</script>

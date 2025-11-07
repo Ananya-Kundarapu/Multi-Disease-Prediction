@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify,redirect, url_for
 import joblib
 import os
 import warnings
@@ -102,6 +102,21 @@ def predict():
     top_diseases = sorted(results.items(), key=lambda x: x[1], reverse=True)[:4]
 
     return render_template('index.html', predictions=top_diseases)
+
+@app.route('/models')
+def models_page():
+    return render_template('index.html')
+
+@app.route('/dashboard')
+def dashboard_page():
+    return render_template('index.html')
+@app.route('/partials/models')
+def partial_models():
+    return render_template('models.html')
+
+@app.route('/partials/dashboard')
+def partial_dashboard():
+    return render_template('dashboard.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

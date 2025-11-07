@@ -1,0 +1,190 @@
+<div class="dashboard-wrapper full-screen-section">
+    <section id="model-dashboard" class="section model-comparison-section">
+        <div class="container">
+<div class="champion-model-card card" id="champion-model">
+    <div class="champion-trophy">
+        <span class="champion-icon">🏆 </span>
+        <h4> Champion Model</h4>
+    </div>
+    <div class="xgb-info">
+        <span class="lightning-icon">⚡</span>
+        <div class="text-group">
+            <span class="model-name-small">XGBoost</span>
+            <span class="model-desc-small">Gradient boosting with highest accuracy</span>
+            <span class="model-tag-small experimental">Experimental</span>
+            <span class="model-tag-small accuracy">94.1% Accuracy</span>
+        </div>
+    </div>
+    <div class="rank-group">
+        <span class="rank-number">#1</span>
+        <span class="rank-desc">Best Overall</span>
+    </div>
+</div>
+
+            <div class="tabs-and-filters">
+                <div class="model-filters" id="model-filters">
+                    <button class="filter-btn active" data-sort="accuracy">
+                        Sort by Accuracy
+                    </button>
+                    <button class="filter-btn" data-sort="speed">
+                        Sort by Speed
+                    </button>
+                    <button class="filter-btn" data-sort="f1-score">
+                        Sort by F1-Score
+                    </button>
+                </div>
+            </div>
+
+            <div class="model-comparison-grid" id="model-list">
+                <div class="model-card card high-complexity" data-accuracy="94.1" data-f1="93.4" data-speed="3.2" data-rank="1">
+                    <div class="model-rank">#1</div>
+                    <h4 class="model-name"><span class="icon-xgb">⚡</span> XGBoost</h4>
+                    <p class="model-desc">Gradient boosting with highest accuracy</p>
+                    <div class="model-metrics">
+                        <div><strong>Accuracy:</strong> <span class="metric-value primary-color">94.1%</span></div>
+                        <div><strong>F1-Score:</strong> 93.4%</div>
+                        <div><strong>Inference Time:</strong> 3.2ms</div>
+                        <div><strong>AUC:</strong> 96.8%</div>
+                    </div>
+<div class="model-meta">
+  <span class="model-tag experimental">Experimental</span>
+  <span class="model-complexity">
+    Complexity: <span class="complexity-level">High</span>
+  </span>
+</div>
+                </div>
+                
+                <div class="model-card card high-complexity" data-accuracy="92.3" data-f1="91.8" data-speed="2.1" data-rank="2">
+                    <div class="model-rank">#2</div>
+                    <h4 class="model-name"><span class="icon-rf">🌳</span> Random Forest</h4>
+                    <p class="model-desc">Ensemble of decision trees with good performance</p>
+                    <div class="model-metrics">
+                        <div><strong>Accuracy:</strong> <span class="metric-value primary-color">92.3%</span></div>
+                        <div><strong>F1-Score:</strong> 91.8%</div>
+                        <div><strong>Inference Time:</strong> 2.1ms</div>
+                        <div><strong>AUC:</strong> 95.2%</div>
+                    </div>
+<div class="model-meta">
+  <span class="model-tag production">Production</span>
+  <span class="model-complexity">
+    Complexity: <span class="complexity-level">High</span>
+  </span>
+</div>
+                </div>
+
+                <div class="model-card card very-high-complexity" data-accuracy="90.7" data-f1="90.2" data-speed="1.2" data-rank="3">
+                    <div class="model-rank">#3</div>
+                    <h4 class="model-name"><span class="icon-nn">🧠</span> Neural Network</h4>
+                    <p class="model-desc">Deep learning approach with complex patterns</p>
+                    <div class="model-metrics">
+                        <div><strong>Accuracy:</strong> <span class="metric-value primary-color">90.7%</span></div>
+                        <div><strong>F1-Score:</strong> 90.2%</div>
+                        <div><strong>Inference Time:</strong> 1.2ms</div>
+                        <div><strong>AUC:</strong> 94.5%</div>
+                    </div>
+                    <div class="model-meta">
+                      <span class="model-tag research">Research</span>
+                      <span class="model-complexity">
+                        Complexity: <span class="complexity-level">Very High</span>
+                      </span>
+                    </div>
+                </div>
+
+                <div class="model-card card medium-complexity" data-accuracy="89.2" data-f1="89.0" data-speed="1.5" data-rank="4">
+                    <div class="model-rank">#4</div>
+                    <h4 class="model-name"><span class="icon-svm">⚛️</span> SVM</h4>
+                    <p class="model-desc">Support vector machine with kernel trick</p>
+                    <div class="model-metrics">
+                        <div><strong>Accuracy:</strong> <span class="metric-value primary-color">89.2%</span></div>
+                        <div><strong>F1-Score:</strong> 89.0%</div>
+                        <div><strong>Inference Time:</strong> 1.5ms</div>
+                        <div><strong>AUC:</strong> 93.1%</div>
+                    </div>
+                    <div class="model-meta">
+                      <span class="model-tag archive">Archive</span>
+                      <span class="model-complexity">
+                        Complexity: <span class="complexity-level">Medium</span>
+                      </span>
+                    </div>
+                </div>
+
+                <div class="model-card card low-complexity" data-accuracy="88.0" data-f1="87.5" data-speed="0.9" data-rank="5">
+                    <div class="model-rank">#5</div>
+                    <h4 class="model-name"><span class="icon-knn">📏</span> K-Nearest Neighbors</h4>
+                    <p class="model-desc">Instance-based learning, simple and fast</p>
+                    <div class="model-metrics">
+                        <div><strong>Accuracy:</strong> <span class="metric-value primary-color">88.0%</span></div>
+                        <div><strong>F1-Score:</strong> 87.5%</div>
+                        <div><strong>Inference Time:</strong> 0.9ms</div>
+                        <div><strong>AUC:</strong> 92.0%</div>
+                    </div>
+                    <div class="model-meta">
+                      <span class="model-tag baseline">Baseline</span>
+                      <span class="model-complexity">
+                        Complexity: <span class="complexity-level">Low</span>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+function initializeModelSorting() {
+  const modelList = document.getElementById("model-list");
+  if (!modelList) return; 
+
+  const filterBtns = document.querySelectorAll(".filter-btn");
+
+  function sortModels(sortBy) {
+    const modelCards = Array.from(modelList.querySelectorAll(".model-card"));
+    if (!modelCards.length) return;
+
+    let sortedCards = [];
+    if (sortBy === "speed") {
+      sortedCards = modelCards.sort(
+        (a, b) => parseFloat(a.dataset.speed) - parseFloat(b.dataset.speed)
+      );
+    } else if (sortBy === "accuracy") {
+      sortedCards = modelCards.sort(
+        (a, b) => parseFloat(b.dataset.accuracy) - parseFloat(a.dataset.accuracy)
+      );
+    } else if (sortBy === "f1-score") {
+      sortedCards = modelCards.sort(
+        (a, b) => parseFloat(b.dataset.f1) - parseFloat(a.dataset.f1)
+      );
+    }
+
+    modelList.innerHTML = "";
+    sortedCards.forEach((card, index) => {
+      card.querySelector(".model-rank").textContent = "#" + (index + 1);
+      modelList.appendChild(card);
+    });
+  }
+
+  filterBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+      const sortBy = button.dataset.sort;
+      filterBtns.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+      sortModels(sortBy);
+    });
+  });
+
+  sortModels("accuracy");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeModelSorting();
+});
+
+const observer = new MutationObserver(() => {
+  const modelList = document.getElementById("model-list");
+  if (modelList && !modelList.dataset.ready) {
+    modelList.dataset.ready = "true";
+    initializeModelSorting();
+  }
+});
+observer.observe(document.body, { childList: true, subtree: true });
+</script>
