@@ -832,3 +832,17 @@ html {
   max-width: 1100px;
   margin: 0 auto;
 }
+.prediction-prob {
+  float: right;
+  text-align: right;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.risk-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: block;
+  margin-top: 2px;
+}

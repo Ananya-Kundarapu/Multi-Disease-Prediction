@@ -142,7 +142,7 @@
                         <h2 class="header-title">Patient Information</h2>
                     </div>
 
-<form action="/predict#analysis" method="post" id="diseaseForm">
+<form action="/predict#analysis" method="post" id="diseaseForm" novalidate>
                             <div id="form-pages">
                             <div class="form-page" data-page="0">
 <div class="page-header nav-header">
@@ -268,25 +268,49 @@
         <input type="number" name="ba" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('ba', '0') }}">
     </label>
     <label><span>Blood Glucose Random (bgr)</span>
-        <input type="number" name="bgr" min="70" max="300" step="1" placeholder="70-300" required value="{{ request.form.get('bgr', '120') }}">
+    <input type="number" name="bgr" min="50" max="500" step="1" placeholder="50-500" required value="{{ request.form.get('bgr', '120') }}">
     </label>
     <label><span>Blood Urea (bu)</span>
-        <input type="number" name="bu" min="10" max="50" step="1" placeholder="10-50" required value="{{ request.form.get('bu', '20') }}">
+    <input type="number" name="bu" min="5" max="200" step="1" placeholder="5-200" required value="{{ request.form.get('bu', '20') }}">
     </label>
     <label><span>Serum Creatinine (sc)</span>
-        <input type="number" name="sc" min="0.5" max="5.0" step="0.1" placeholder="0.5-5.0" required value="{{ request.form.get('sc', '1.0') }}">
+    <input type="number" name="sc" min="0.3" max="20.0" step="0.1" placeholder="0.3-20.0" required value="{{ request.form.get('sc', '1.0') }}">
     </label>
     <label><span>Sodium (sod)</span>
-        <input type="number" name="sod" min="130" max="145" step="1" placeholder="130-145" required value="{{ request.form.get('sod', '138') }}">
+    <input type="number" name="sod" min="120" max="160" step="1" placeholder="120-160" required value="{{ request.form.get('sod', '138') }}">
     </label>
     <label><span>Potassium (pot)</span>
-        <input type="number" name="pot" min="3.5" max="6.5" step="0.1" placeholder="3.5-6.5" required value="{{ request.form.get('pot', '4.5') }}">
+    <input type="number" name="pot" min="2.5" max="8.0" step="0.1" placeholder="2.5-8.0" required value="{{ request.form.get('pot', '4.5') }}">
     </label>
     <label><span>Hemoglobin (hemo)</span>
-        <input type="number" name="hemo" min="10" max="17" step="0.1" placeholder="10-17" required value="{{ request.form.get('hemo', '13.5') }}">
+    <input type="number" name="hemo" min="5" max="20" step="0.1" placeholder="5-20" required value="{{ request.form.get('hemo', '13.5') }}">
     </label>
     <label><span>Packed Cell Volume (pcv)</span>
-        <input type="number" name="pcv" min="25" max="50" step="1" placeholder="25-50" required value="{{ request.form.get('pcv', '40') }}">
+    <input type="number" name="pcv" min="15" max="60" step="1" placeholder="15-60" required value="{{ request.form.get('pcv', '40') }}">
+    </label>
+    <label><span>White Blood Cell Count (wc)</span>
+    <input type="number" name="wc" min="4000" max="12000" step="1" placeholder="4000-12000" required value="{{ request.form.get('wc', '8000') }}">
+    </label>
+    <label><span>Red Blood Cell Count (rc)</span>
+    <input type="number" name="rc" min="3" max="6" step="0.1" placeholder="3-6" required value="{{ request.form.get('rc', '5.0') }}">
+    </label>
+    <label><span>Hypertension (htn) (0=no, 1=yes)</span>
+    <input type="number" name="htn" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('htn', '1') }}">
+    </label>
+    <label><span>Diabetes Mellitus (dm) (0=no, 1=yes)</span>
+    <input type="number" name="dm" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('dm', '1') }}">
+    </label>
+    <label><span>Coronary Artery Disease (cad) (0=no, 1=yes)</span>
+    <input type="number" name="cad" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('cad', '0') }}">
+    </label>
+    <label><span>Appetite (appet) (0=poor, 1=good)</span>
+    <input type="number" name="appet" min="0" max="1" step="1" placeholder="0=poor, 1=good" required value="{{ request.form.get('appet', '1') }}">
+    </label>
+    <label><span>Pedal Edema (pe) (0=no, 1=yes)</span>
+    <input type="number" name="pe" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('pe', '0') }}">
+    </label>
+    <label><span>Anemia (ane) (0=no, 1=yes)</span>
+    <input type="number" name="ane" min="0" max="1" step="1" placeholder="0 or 1" required value="{{ request.form.get('ane', '1') }}">
     </label>
 </div>
 </div>
@@ -304,28 +328,28 @@
 </div>                
  <div class="input-grid">
     <label><span>Total Bilirubin (TB)</span>
-        <input type="number" name="TB" min="0.1" max="6.0" step="0.1" placeholder="0.1-6.0" required value="{{ request.form.get('TB', '1.0') }}">
+    <input type="number" name="TB" min="0.1" max="50.0" step="0.1" placeholder="0.1-50.0" required value="{{ request.form.get('TB', '1.0') }}">
     </label>
     <label><span>Direct Bilirubin (DB)</span>
-        <input type="number" name="DB" min="0" max="1.0" step="0.1" placeholder="0-1.0" required value="{{ request.form.get('DB', '0.2') }}">
+    <input type="number" name="DB" min="0" max="25.0" step="0.1" placeholder="0-25.0" required value="{{ request.form.get('DB', '0.2') }}">
     </label>
     <label><span>Alkaline Phosphatase (Alkphos)</span>
-        <input type="number" name="Alkphos" min="45" max="150" step="1" placeholder="45-150" required value="{{ request.form.get('Alkphos', '100') }}">
+    <input type="number" name="Alkphos" min="45" max="1000" step="1" placeholder="45-1000" required value="{{ request.form.get('Alkphos', '100') }}">
     </label>
     <label><span>SGPT (Sgpt)</span>
-        <input type="number" name="Sgpt" min="10" max="60" step="1" placeholder="10-60" required value="{{ request.form.get('Sgpt', '35') }}">
+    <input type="number" name="Sgpt" min="5" max="1000" step="1" placeholder="5-1000" required value="{{ request.form.get('Sgpt', '35') }}">
     </label>
     <label><span>SGOT (Sgot)</span>
-        <input type="number" name="Sgot" min="10" max="50" step="1" placeholder="10-50" required value="{{ request.form.get('Sgot', '30') }}">
+    <input type="number" name="Sgot" min="5" max="1000" step="1" placeholder="5-1000" required value="{{ request.form.get('Sgot', '30') }}">
     </label>
     <label><span>Total Protein (TP)</span>
-        <input type="number" name="TP" min="4" max="8" step="0.1" placeholder="4-8" required value="{{ request.form.get('TP', '6.5') }}">
+    <input type="number" name="TP" min="3" max="10" step="0.1" placeholder="3-10" required value="{{ request.form.get('TP', '6.5') }}">
     </label>
     <label><span>Albumin (ALB)</span>
-        <input type="number" name="ALB" min="2" max="5" step="0.1" placeholder="2-5" required value="{{ request.form.get('ALB', '3.5') }}">
+    <input type="number" name="ALB" min="1" max="6" step="0.1" placeholder="1-6" required value="{{ request.form.get('ALB', '3.5') }}">
     </label>
     <label><span>Albumin/Globulin Ratio (A_G)</span>
-        <input type="number" name="A_G" min="0.8" max="2.5" step="0.1" placeholder="0.8-2.5" required value="{{ request.form.get('A_G', '1.2') }}">
+    <input type="number" name="A_G" min="0.3" max="3.0" step="0.1" placeholder="0.3-3.0" required value="{{ request.form.get('A_G', '1.2') }}">
     </label>
 </div>
 </div>
@@ -362,7 +386,18 @@
                        <li class="result-item">
                                        {{ icon | safe }}
                                        <span class="disease-name">{{ disease }}</span>
-                                       <span class="prediction-prob">{{ prob }}%</span>
+                                       <span class="prediction-prob">
+                                        {{ prob[0] }}%
+    <br>
+    <span class="risk-label" style="color:
+        {% if prob[1] == 'High Risk' %}#e63946
+        {% elif prob[1] == 'Moderate Risk' %}#ffb703
+        {% else %}#2a9d8f{% endif %};
+    ">
+        {{ prob[1] }}
+    </span>
+</span>
+
                                     </li>
                                {% endfor %}
                            </ul>
@@ -484,7 +519,6 @@ function initPredictionForm() {
         }
     }
 
-    // 👇 These stay global so buttons can still call them dynamically
     window.navigateForm = function(direction) {
         const newIndex = currentPageIndex + direction;
         if (newIndex >= 0 && newIndex < totalPages) {
@@ -493,9 +527,21 @@ function initPredictionForm() {
         }
     }
 
-    window.submitCurrentForm = function() {
-        predictSubmitButton.click();
-    }
+window.submitCurrentForm = function() {
+    const hiddenRequired = document.querySelectorAll('.form-page.hidden input[required]');
+    hiddenRequired.forEach(input => {
+        input.dataset.wasRequired = "true";
+        input.removeAttribute('required');
+    });
+    predictSubmitButton.click();
+    setTimeout(() => {
+        hiddenRequired.forEach(input => {
+            input.setAttribute('required', '');
+            delete input.dataset.wasRequired;
+        });
+    }, 500);
+}
+
 
     updateFormVisibility();
 }
@@ -581,7 +627,7 @@ window.addEventListener("popstate", (event) => {
         loadSection(event.state.section);
     }
 });
-// ✅ Auto-load correct section on page refresh
+
 document.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname.replace("/", "").trim();
     if (path === "dashboard") {
@@ -621,6 +667,14 @@ function showPredictSection() {
         })
         .catch(err => console.error("❌ Failed to reload predict section:", err));
 }
+</script>
+<script>
+window.addEventListener('load', function() {
+    if (document.querySelector('#diseaseForm')) {
+        initPredictionForm();
+        console.log("✅ Form reinitialized after prediction reload");
+    }
+});
 </script>
 </body>
 </html>
