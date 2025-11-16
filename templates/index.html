@@ -198,6 +198,12 @@
     </button>
 </div>                             
 <div class="input-grid">
+    <label><span>Age (auto-filled)</span>
+        <input type="number" name="age" readonly value="{{ request.form.get('Age', 30) }}">
+    </label>
+    <label><span>Sex (auto-filled)</span>
+        <input type="number" name="sex" readonly value="{{ request.form.get('Gender', 1) }}">
+    </label>
     <label><span>Chest Pain Type (CP)</span>
         <input type="number" name="cp" min="0" max="3" step="1" placeholder="0-3" required value="{{ request.form.get('cp', '1') }}">
     </label>
@@ -246,6 +252,8 @@
     </button>
 </div>                               
 <div class="input-grid">
+    <input type="hidden" name="age" id="kidney_age">
+    <input type="hidden" name="bp" id="kidney_bp">
     <label><span>Specific Gravity (sg)</span>
         <input type="number" name="sg" min="1.005" max="1.030" step="0.001" placeholder="1.005-1.030" required value="{{ request.form.get('sg', '1.020') }}">
     </label>
@@ -327,29 +335,31 @@
     </button>
 </div>                
  <div class="input-grid">
+    <input type="hidden" name="Age_Liver" id="liver_age">
+    <input type="hidden" name="Gender_Liver" id="liver_gender">
     <label><span>Total Bilirubin (TB)</span>
-    <input type="number" name="TB" min="0.1" max="50.0" step="0.1" placeholder="0.1-50.0" required value="{{ request.form.get('TB', '1.0') }}">
+<input type="number" name="Total_Bilirubin" min="0.1" max="50.0" step="0.1" placeholder="0.1-50.0" required value="{{ request.form.get('Total_Bilirubin', '1.0') }}">
     </label>
     <label><span>Direct Bilirubin (DB)</span>
-    <input type="number" name="DB" min="0" max="25.0" step="0.1" placeholder="0-25.0" required value="{{ request.form.get('DB', '0.2') }}">
+    <input type="number" name="Direct_Bilirubin" min="0" max="25.0" step="0.1" placeholder="0-25.0" required value="{{ request.form.get('Direct_Bilirubin', '0.2') }}">
     </label>
     <label><span>Alkaline Phosphatase (Alkphos)</span>
-    <input type="number" name="Alkphos" min="45" max="1000" step="1" placeholder="45-1000" required value="{{ request.form.get('Alkphos', '100') }}">
+    <input type="number" name="Alkaline_Phosphotase" min="45" max="1000" step="1" placeholder="45-1000" required value="{{ request.form.get('Alkaline_Phosphotase', '100') }}">
     </label>
     <label><span>SGPT (Sgpt)</span>
-    <input type="number" name="Sgpt" min="5" max="1000" step="1" placeholder="5-1000" required value="{{ request.form.get('Sgpt', '35') }}">
+    <input type="number" name="Alamine_Aminotransferase" min="5" max="1000" step="1" placeholder="5-1000" required value="{{ request.form.get('Alamine_Aminotransferase', '35') }}">
     </label>
     <label><span>SGOT (Sgot)</span>
-    <input type="number" name="Sgot" min="5" max="1000" step="1" placeholder="5-1000" required value="{{ request.form.get('Sgot', '30') }}">
+    <input type="number" name="Aspartate_Aminotransferase" min="5" max="1000" step="1" placeholder="5-1000" required value="{{ request.form.get('Aspartate_Aminotransferase', '30') }}">
     </label>
     <label><span>Total Protein (TP)</span>
-    <input type="number" name="TP" min="3" max="10" step="0.1" placeholder="3-10" required value="{{ request.form.get('TP', '6.5') }}">
+    <input type="number" name="Total_Protiens" min="3" max="10" step="0.1" placeholder="3-10" required value="{{ request.form.get('Total_Protiens', '6.5') }}">
     </label>
     <label><span>Albumin (ALB)</span>
-    <input type="number" name="ALB" min="1" max="6" step="0.1" placeholder="1-6" required value="{{ request.form.get('ALB', '3.5') }}">
+    <input type="number" name="Albumin" min="1" max="6" step="0.1" placeholder="1-6" required value="{{ request.form.get('Albumin', '3.5') }}">
     </label>
     <label><span>Albumin/Globulin Ratio (A_G)</span>
-    <input type="number" name="A_G" min="0.3" max="3.0" step="0.1" placeholder="0.3-3.0" required value="{{ request.form.get('A_G', '1.2') }}">
+    <input type="number" name="Albumin_and_Globulin_Ratio" min="0.3" max="3.0" step="0.1" placeholder="0.3-3.0" required value="{{ request.form.get('Albumin_and_Globulin_Ratio', '1.2') }}">
     </label>
 </div>
 </div>
@@ -575,7 +585,7 @@ fetch(`/partials/${section}`)
                     link.rel = "stylesheet";
                     link.href = cssPath;
                     document.head.appendChild(link);
-                    console.log("✅ Dashboard CSS loaded dynamically");
+                    console.log("Dashboard CSS loaded dynamically");
                 }
             }
 if (section === "models") {
@@ -585,7 +595,7 @@ if (section === "models") {
         link.rel = "stylesheet";
         link.href = cssPath;
         document.head.appendChild(link);
-        console.log("✅ Models CSS loaded dynamically");
+        console.log("Models CSS loaded dynamically");
     }
 }
 
@@ -597,7 +607,7 @@ if (section === "models") {
                 document.body.appendChild(newScript);
             });
 
- console.log("✅ Section loaded:", section);
+ console.log("Section loaded:", section);
 
 setTimeout(() => {
     try {
@@ -662,18 +672,67 @@ function showPredictSection() {
                     if (analysis) analysis.scrollIntoView({ behavior: "smooth" });
                 }, 300);
 
-                console.log("✅ Predict section reloaded and initialized");
+                console.log("Predict section reloaded and initialized");
             }
         })
-        .catch(err => console.error("❌ Failed to reload predict section:", err));
+        .catch(err => console.error("Failed to reload predict section:", err));
 }
 </script>
 <script>
 window.addEventListener('load', function() {
     if (document.querySelector('#diseaseForm')) {
         initPredictionForm();
-        console.log("✅ Form reinitialized after prediction reload");
+        console.log("Form reinitialized after prediction reload");
     }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const genderInput = document.querySelector('input[name="Gender"]');
+    const pregInput = document.querySelector('input[name="Pregnancies"]');
+    function updatePregnancyField() {
+        const gender = Number(genderInput.value);
+        if (gender === 1) { 
+            pregInput.value = 0;
+            pregInput.disabled = true;
+            pregInput.style.backgroundColor = "#eee";  // optional styling
+        } else {
+            pregInput.disabled = false;
+            pregInput.min = 0;
+            pregInput.max = 15;
+            pregInput.style.backgroundColor = ""; 
+        }
+    }
+    updatePregnancyField();
+    genderInput.addEventListener("change", updatePregnancyField);
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const genderMain = document.querySelector('input[name="Gender"]');
+    const ageMain = document.querySelector('input[name="Age"]');
+    const bpMain = document.querySelector('input[name="BloodPressure"]');
+
+    const heartAge = document.querySelector('input[name="age"]');
+    const heartSex = document.querySelector('input[name="sex"]');
+
+    const kidneyAge = document.getElementById("kidney_age");
+    const kidneyBP = document.getElementById("kidney_bp");
+    
+    const liverAge = document.getElementById("liver_age");
+    const liverGender = document.getElementById("liver_gender");
+    function updateSharedFields() {
+        if (heartAge) heartAge.value = ageMain.value;
+        if (heartSex) heartSex.value = genderMain.value;
+        if (kidneyAge) kidneyAge.value = ageMain.value;
+        if (kidneyBP) kidneyBP.value = bpMain.value;
+        if (liverAge) liverAge.value = ageMain.value;
+        if (liverGender) liverGender.value = genderMain.value;
+    }
+    updateSharedFields();
+    genderMain.addEventListener("input", updateSharedFields);
+    ageMain.addEventListener("input", updateSharedFields);
+    bpMain.addEventListener("input", updateSharedFields);
 });
 </script>
 </body>

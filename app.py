@@ -5,53 +5,79 @@ import warnings
 import pandas as pd
 import glob
 import numpy as np
+FEATURE_MAP = {
+    "Diabetes": [
+        "Pregnancies", "Glucose", "BloodPressure", "SkinThickness",
+        "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"
+    ],
+    "Heart Disease": [
+        "age", "sex", "cp", "trestbps", "chol", "fbs",
+        "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal"
+    ],
+    "Kidney Disease": [
+        "age", "bp", "sg", "al", "su", "rbc", "pc", "pcc", "ba", "bgr", "bu",
+        "sc", "sod", "pot", "hemo", "pcv", "wc", "rc", "htn", "dm", "cad",
+        "appet", "pe", "ane"
+    ],
+    "Liver Disease": [
+        "Age", "Gender", "Total_Bilirubin", "Direct_Bilirubin",
+        "Alkaline_Phosphotase", "Alamine_Aminotransferase",
+        "Aspartate_Aminotransferase", "Total_Protiens",
+        "Albumin", "Albumin_and_Globulin_Ratio"
+    ]
+}
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODELS_DIR = os.path.join(BASE_DIR, 'models')
+MODELS_DIR = os.path.join(BASE_DIR, "models")
 
 models = {
-    'Diabetes': (
-        joblib.load(os.path.join(MODELS_DIR, 'diabetes_model.pkl')),
-        joblib.load(os.path.join(MODELS_DIR, 'diabetes_scaler.pkl'))
+    "Diabetes": (
+        joblib.load(os.path.join(MODELS_DIR, "diabetes_model.pkl")),
+        joblib.load(os.path.join(MODELS_DIR, "diabetes_scaler.pkl"))
     ),
-    'Heart Disease': (
-        joblib.load(os.path.join(MODELS_DIR, 'heart_model.pkl')),
-        joblib.load(os.path.join(MODELS_DIR, 'heart_scaler.pkl'))
+    "Heart Disease": (
+        joblib.load(os.path.join(MODELS_DIR, "heart_model.pkl")),
+        joblib.load(os.path.join(MODELS_DIR, "heart_scaler.pkl"))
     ),
-    'Kidney Disease': (
-        joblib.load(os.path.join(MODELS_DIR, 'kidney_model.pkl')),
-        joblib.load(os.path.join(MODELS_DIR, 'kidney_scaler.pkl'))
+    "Kidney Disease": (
+        joblib.load(os.path.join(MODELS_DIR, "kidney_model.pkl")),
+        joblib.load(os.path.join(MODELS_DIR, "kidney_scaler.pkl"))
     ),
-    'Liver Disease': (
-        joblib.load(os.path.join(MODELS_DIR, 'liver_model.pkl')),
-        joblib.load(os.path.join(MODELS_DIR, 'liver_scaler.pkl'))
+    "Liver Disease": (
+        joblib.load(os.path.join(MODELS_DIR, "liver_model.pkl")),
+        joblib.load(os.path.join(MODELS_DIR, "liver_scaler.pkl"))
     )
 }
 
 def apply_label_encoders(disease_name, df):
-    base_name = disease_name.split(' ')[0].lower()
+    base_name = disease_name.split(" ")[0].lower()
     encoders = glob.glob(os.path.join(MODELS_DIR, f"{base_name}_*_encoder.pkl"))
+
     for enc_path in encoders:
-        col_name = os.path.basename(enc_path).replace(f"{base_name}_", "").replace("_encoder.pkl", "")
+        col_name = os.path.basename(enc_path)\
+            .replace(f"{base_name}_", "")\
+            .replace("_encoder.pkl", "")
+
         if col_name in df.columns:
             le = joblib.load(enc_path)
             try:
                 df[col_name] = le.transform(df[col_name])
             except ValueError:
                 df[col_name] = le.transform([le.classes_[0]] * len(df))
+
     return df
 
 def prepare_features(df_input, disease_name, model, scaler):
-    base_name = disease_name.split(' ')[0].lower()
+    base_name = disease_name.split(" ")[0].lower()
     features_path = os.path.join(MODELS_DIR, f"{base_name}_features.pkl")
 
     if os.path.exists(features_path):
         expected_features = joblib.load(features_path)
-        expected_features = [f for f in expected_features if f != 'id']
+        expected_features = [f for f in expected_features if f != "id"]
     else:
         try:
             expected_features = list(model.feature_names_in_)
@@ -59,12 +85,13 @@ def prepare_features(df_input, disease_name, model, scaler):
             expected_features = list(df_input.columns)
 
     clean_df = pd.DataFrame(columns=expected_features)
+
     for col in expected_features:
         if col in df_input.columns:
-            clean_df[col] = pd.to_numeric(df_input[col], errors='coerce').fillna(0.0)
+            clean_df[col] = pd.to_numeric(df_input[col], errors="coerce").fillna(0.0)
         elif col.lower() in [c.lower() for c in df_input.columns]:
-            matched_col = [c for c in df_input.columns if c.lower() == col.lower()][0]
-            clean_df[col] = pd.to_numeric(df_input[matched_col], errors='coerce').fillna(0.0)
+            matched = [c for c in df_input.columns if c.lower() == col.lower()][0]
+            clean_df[col] = pd.to_numeric(df_input[matched], errors="coerce").fillna(0.0)
         else:
             clean_df[col] = 0.0
 
@@ -84,11 +111,11 @@ def prepare_features(df_input, disease_name, model, scaler):
 
     return pd.DataFrame(clean_df, columns=expected_features)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/predict', methods=['POST'])
+@app.route("/predict", methods=["POST"])
 def predict():
     try:
         user_inputs = {}
@@ -102,9 +129,23 @@ def predict():
         results = {}
 
         for disease, (model, scaler) in models.items():
-            df_ready = apply_label_encoders(disease, df_input.copy())
+
+            df_renamed = df_input.copy()
+
+            if disease == "Heart Disease":
+                if "Gender" in df_renamed.columns:
+                    df_renamed["sex"] = df_renamed["Gender"]
+
+            if disease == "Kidney Disease":
+                if "BloodPressure" in df_renamed.columns:
+                    df_renamed["bp"] = df_renamed["BloodPressure"]
+
+            required = FEATURE_MAP[disease]
+            df_disease = pd.DataFrame({col: df_renamed.get(col, 0) for col in required})
+
+            df_ready = apply_label_encoders(disease, df_disease.copy())
             df_ready = prepare_features(df_ready, disease, model, scaler)
-            df_ready = pd.DataFrame(df_ready).fillna(0)
+            df_ready = df_ready.fillna(0)
 
             if hasattr(model, "predict_proba"):
                 prob = model.predict_proba(df_ready)[0][1] * 100
@@ -124,26 +165,26 @@ def predict():
 
     except Exception as e:
         print(f"❌ Prediction Error: {e}")
-        return render_template('index.html', predictions=[('Error', str(e))])
+        return render_template("index.html", predictions=[("Error", str(e))])
 
     top_diseases = sorted(results.items(), key=lambda x: x[1][0], reverse=True)[:4]
-    return render_template('index.html', predictions=top_diseases)
+    return render_template("index.html", predictions=top_diseases)
 
-@app.route('/models')
+@app.route("/models")
 def models_page():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/dashboard')
+@app.route("/dashboard")
 def dashboard_page():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/partials/models')
+@app.route("/partials/models")
 def partial_models():
-    return render_template('models.html')
+    return render_template("models.html")
 
-@app.route('/partials/dashboard')
+@app.route("/partials/dashboard")
 def partial_dashboard():
-    return render_template('dashboard.html')
+    return render_template("dashboard.html")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
