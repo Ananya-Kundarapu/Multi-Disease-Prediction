@@ -82,7 +82,6 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Confusion Matrix Grid */
 .matrix-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -139,13 +138,11 @@
 .bar.yellow { background: #ffea7a; }
 .bar.red { background: #ff9b9b; }
 
-/* Training Chart */
 .training-card canvas {
   width: 100%;
   height: 250px;
 }
 
-/* 🔹 Responsive Design */
 @media (max-width: 900px) {
   .analytics-section {
     grid-template-columns: 1fr;

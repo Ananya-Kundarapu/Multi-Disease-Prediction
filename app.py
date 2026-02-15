@@ -5,6 +5,9 @@ import warnings
 import pandas as pd
 import glob
 import numpy as np
+import ssl
+from pymongo import MongoClient
+from dotenv import load_dotenv
 FEATURE_MAP = {
     "Diabetes": [
         "Pregnancies", "Glucose", "BloodPressure", "SkinThickness",
@@ -30,6 +33,25 @@ FEATURE_MAP = {
 warnings.filterwarnings("ignore", category=UserWarning)
 
 app = Flask(__name__)
+
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI")
+
+import certifi
+
+client = MongoClient(
+    MONGO_URI,
+    serverSelectionTimeoutMS=5000,
+    connectTimeoutMS=5000,
+    socketTimeoutMS=5000,
+    tls=True,
+    tlsAllowInvalidHostnames=True,
+    tlsCAFile=certifi.where()
+)
+
+db = client.medpredict
+users_collection = db.users
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, "models")
@@ -185,6 +207,15 @@ def partial_models():
 @app.route("/partials/dashboard")
 def partial_dashboard():
     return render_template("dashboard.html")
+
+@app.route("/test-db")
+def test_db():
+    try:
+        client.admin.command("ping") 
+        users_collection.insert_one({"status": "mongo_connected"})
+        return "MongoDB connected successfully ✅"
+    except Exception as e:
+        return f"MongoDB connection failed ❌ {e}"
 
 if __name__ == "__main__":
     app.run(debug=True)
