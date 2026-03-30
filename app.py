@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session, flash
 import joblib
 import os
 import warnings
@@ -8,6 +8,7 @@ import numpy as np
 import ssl
 from pymongo import MongoClient
 from dotenv import load_dotenv
+
 FEATURE_MAP = {
     "Diabetes": [
         "Pregnancies", "Glucose", "BloodPressure", "SkinThickness",
@@ -33,6 +34,9 @@ FEATURE_MAP = {
 warnings.filterwarnings("ignore", category=UserWarning)
 
 app = Flask(__name__)
+app.secret_key = "medpredict_secret"
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt(app)
 
 load_dotenv()
 
@@ -134,8 +138,9 @@ def prepare_features(df_input, disease_name, model, scaler):
     return pd.DataFrame(clean_df, columns=expected_features)
 
 @app.route("/")
+
 def home():
-    return render_template("index.html")
+    return render_template("index.html", user=session.get("user"))
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -216,6 +221,73 @@ def test_db():
         return "MongoDB connected successfully ✅"
     except Exception as e:
         return f"MongoDB connection failed ❌ {e}"
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        password = request.form["password"]
+
+        # check if user exists
+        if users_collection.find_one({"email": email}):
+            return render_template(
+                "signup.html",
+                error="User already exists. Please login.",
+                name=name,
+                email=email
+            )
+
+        # hash password
+        hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
+
+        # store user
+        users_collection.insert_one({
+            "name": name,
+            "email": email,
+            "password": hashed_pw
+        })
+
+        session["user"] = name
+        return redirect("/")
+
+    return render_template("signup.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        user = users_collection.find_one({"email": email})
+
+        # user not found
+        if not user:
+            return render_template(
+                "login.html",
+                error="User does not exist. Please sign up.",
+                email=email
+            )
+
+        # wrong password
+        if not bcrypt.check_password_hash(user["password"], password):
+            return render_template(
+                "login.html",
+                error="Invalid email or password",
+                email=email
+            )
+
+        session["user"] = user["name"]
+        return redirect("/")
+
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)

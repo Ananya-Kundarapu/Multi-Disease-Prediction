@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedPredict – Multi-Disease AI Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     
@@ -16,10 +17,24 @@
     <span class="logo-text">MedPredict</span>
 </a>
                 <nav class="tomato-nav">
-                    <a href="#how-it-works">How it Works</a>
-                    <a href="#analysis">Try Prediction</a>
-                    <a href="#cta-banner">About</a>
-                </nav>
+
+    {% if user %}
+        <div class="profile-container" onclick="toggleDropdown(event)">
+            <i class="fa-solid fa-user" style="margin-right: 6px;"></i>
+            <span class="username">{{ user }}</span>
+            <div id="dropdownMenu" class="dropdown">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
+
+    <a href="#how-it-works">How it Works</a>
+    <a href="#analysis">Try Prediction</a>
+    <a href="#cta-banner">About</a>
+
+</nav>
             </div>
         </div>
     </header>
@@ -111,6 +126,15 @@
     </section>
 
     <section id="analysis" class="section prediction-section">
+
+    {% if not user %}
+        <div class="blur-overlay">
+            <p>Please login to access prediction</p>
+            <a href="/login" class="login-btn">Login</a>
+        </div>
+    {% endif %}
+
+    <div class="{% if not user %}blurred{% endif %}">
         <div class="container main-prediction-container">
             <div class="prediction-app-header">
                 <h2>Multi-Disease Prediction</h2>
@@ -419,6 +443,7 @@
                 </div>
             </div>
         </div>
+        </div>
     </section>
 
     <div id="dynamic-content"></div>
@@ -695,7 +720,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (gender === 1) { 
             pregInput.value = 0;
             pregInput.disabled = true;
-            pregInput.style.backgroundColor = "#eee";  // optional styling
+            pregInput.style.backgroundColor = "#eee";
         } else {
             pregInput.disabled = false;
             pregInput.min = 0;
@@ -733,6 +758,23 @@ document.addEventListener("DOMContentLoaded", function() {
     genderMain.addEventListener("input", updateSharedFields);
     ageMain.addEventListener("input", updateSharedFields);
     bpMain.addEventListener("input", updateSharedFields);
+});
+</script>
+
+<script>
+function toggleDropdown(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById("dropdownMenu");
+    dropdown.classList.toggle("show");
+}
+
+window.addEventListener("click", function(e) {
+    if (!e.target.closest(".profile-container")) {
+        const dropdown = document.getElementById("dropdownMenu");
+        if (dropdown) {
+            dropdown.classList.remove("show");
+        }
+    }
 });
 </script>
 </body>

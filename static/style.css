@@ -88,7 +88,7 @@ a:hover {
 }
 
 .tomato-nav a {
-    margin-left: 1.5rem;
+    text-decoration: none;
     color: var(--text-color);
     font-weight: 500;
 }
@@ -844,4 +844,94 @@ html {
   font-weight: 500;
   display: block;
   margin-top: 2px;
+}
+
+.blurred {
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.prediction-section {
+  position: relative;
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 25px 35px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 10;
+}
+
+.login-btn {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #4338ca;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.tomato-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-container .dropdown {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    display: none;
+    min-width: 120px;
+    z-index: 1000;
+}
+.username {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: none;
+    min-width: 140px;
+    z-index: 9999;
+}
+
+.dropdown.show {
+    display: block;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.dropdown a:hover {
+    color: #dc2626; /* red */
+    background: #fef2f2;
 }

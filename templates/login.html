@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - MedPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<header class="auth-header">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}">
+        <span>MedPredict</span>
+    </div>
+</header>
+
+<div class="back-container">
+    <a href="/" class="back-btn">← Back</a>
+</div>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <p class="subtitle">Please enter your details to login</p>
+        <h2 class="title">Welcome back</h2>
+        {% if error %}
+            <p class="validation-error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+
+         <input id="email" type="email" name="email" placeholder="Email address" class="input-field" value="{{ email or '' }}" onblur="emailTouched = true; validateForm()" oninput="validateForm()" required>
+            <p id="emailError" class="validation-error" style="display:none;">
+                Email is required
+            </p>
+            <div class="password-wrapper">
+
+                <input 
+  id="passwordInput"
+  type="password" 
+  name="password" 
+  placeholder="Password"
+  class="input-field password-input"
+  onblur="passwordTouched = true; validateForm()"
+  oninput="validateForm()"
+  required
+>
+
+                <span class="toggle-password" onclick="togglePassword()">
+                    <i class="material-icons" id="eyeIcon">visibility</i>
+                </span>
+
+            </div>
+
+            <p id="passwordError" class="validation-error" style="display:none;">
+                Password is required
+            </p>
+
+            <button id="loginBtn" type="submit" class="login-btn" disabled>
+                Sign in
+            </button>
+
+        </form>
+        <p class="signup-text">
+            Don’t have an account?
+            <a href="/signup" class="signup-link">Sign up</a>
+        </p>
+
+    </div>
+</div>
+
+<script>
+let emailTouched = false;
+let passwordTouched = false;
+
+function togglePassword() {
+    const input = document.getElementById("passwordInput");
+    const icon = document.getElementById("eyeIcon");
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "visibility_off";
+    } else {
+        input.type = "password";
+        icon.textContent = "visibility";
+    }
+}
+
+function validateForm() {
+    const email = document.getElementById("email");
+    const password = document.getElementById("passwordInput");
+    const btn = document.getElementById("loginBtn");
+
+    const emailError = document.getElementById("emailError");
+    const passwordError = document.getElementById("passwordError");
+
+    let valid = true;
+
+    if (!email.value.trim()) {
+        if (emailTouched) emailError.style.display = "block";
+        valid = false;
+    } else {
+        emailError.style.display = "none";
+    }
+
+    if (!password.value.trim()) {
+        if (passwordTouched) passwordError.style.display = "block";
+        valid = false;
+    } else {
+        passwordError.style.display = "none";
+    }
+
+    btn.disabled = !valid;
+}
+</script>
+
+</body>
+</html>
