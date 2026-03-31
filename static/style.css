@@ -298,6 +298,10 @@ a:hover {
     padding: 1.5rem;
     box-shadow: var(--box-shadow);
     flex: 1; 
+}
+
+.form-card,
+.result-card {
     min-height: 500px;
 }
 
@@ -402,7 +406,7 @@ input:focus {
     justify-content: flex-start;
     text-align: center;
     padding-top: 0px;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
     padding-left: 0;
     padding-right: 0;
     margin-top: 0;
@@ -815,7 +819,7 @@ html {
 }
 .content-wrapper {
   width: 100%;
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -932,6 +936,47 @@ html {
 }
 
 .dropdown a:hover {
-    color: #dc2626; /* red */
+    color: #dc2626;
     background: #fef2f2;
+}
+
+/* 🔥 LIFESTYLE SUGGESTIONS SECTION */
+
+.lifestyle-section {
+    margin-top: 30px;
+}
+
+.lifestyle-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #e63946;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* hover effect (nice subtle UI) */
+.lifestyle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.lifestyle-title {
+    color: #e63946;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.lifestyle-list {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.lifestyle-list li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
 }

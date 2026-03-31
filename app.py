@@ -144,6 +144,8 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    if "user" not in session:
+        return redirect("/login")
     try:
         user_inputs = {}
         for k, v in request.form.items():
@@ -154,7 +156,34 @@ def predict():
 
         df_input = pd.DataFrame(user_inputs)
         results = {}
+        high_risk_suggestions = {}
 
+        lifestyle_data = {
+            "Heart Disease": [
+                "Avoid fried and oily foods",
+                "Reduce salt intake",
+                "Walk at least 30 minutes daily",
+                "Monitor blood pressure regularly"
+            ],
+            "Kidney Disease": [
+                "Drink adequate water",
+                "Reduce sodium intake",
+                "Avoid processed foods",
+                "Monitor kidney function regularly"
+            ],
+            "Liver Disease": [
+                "Avoid alcohol consumption",
+                "Eat a balanced diet",
+                "Maintain healthy weight",
+                "Stay hydrated"
+            ],
+            "Diabetes": [
+                "Limit sugar intake",
+                "Exercise regularly",
+                "Monitor blood glucose",
+                "Follow a healthy diet plan"
+            ]
+        }
         for disease, (model, scaler) in models.items():
 
             df_renamed = df_input.copy()
@@ -190,12 +219,20 @@ def predict():
 
             results[disease] = (round(prob, 2), risk_label)
 
+            if risk_label == "High Risk":
+                high_risk_suggestions[disease] = lifestyle_data.get(disease, [])
+
     except Exception as e:
         print(f"❌ Prediction Error: {e}")
         return render_template("index.html", predictions=[("Error", str(e))])
 
     top_diseases = sorted(results.items(), key=lambda x: x[1][0], reverse=True)[:4]
-    return render_template("index.html", predictions=top_diseases)
+    return render_template(
+    "index.html",
+    predictions=top_diseases,
+    user=session.get("user"),
+    high_risk_suggestions=high_risk_suggestions
+)
 
 @app.route("/models")
 def models_page():

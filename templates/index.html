@@ -445,6 +445,27 @@
             </div>
         </div>
         </div>
+        {% if high_risk_suggestions %}
+        <div class="container" style="margin-top: 30px;">
+
+            {% for disease, tips in high_risk_suggestions.items() %}
+            <div class="card" style="margin-bottom: 20px; padding: 20px; border-left: 5px solid #e63946;">
+
+                <h3 style="color: #e63946; margin-bottom: 10px;">
+                    Lifestyle Suggestions for {{ disease }}
+                </h3>
+
+                <ul style="padding-left: 20px;">
+                    {% for tip in tips %}
+                    <li style="margin-bottom: 8px;">{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endif %}
     </section>
 
     <div id="dynamic-content"></div>
@@ -504,7 +525,7 @@ Empowering patients and doctors with ML-based multi-disease risk prediction tech
                 </div>
 
                 <div class="footer-bottom">
-                    <p>© 2025 MedPredict. All rights reserved.</p>
+                    <p>© 2026 MedPredict. All rights reserved.</p>
                 </div>
             </div>
         </div>
