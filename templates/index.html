@@ -424,11 +424,11 @@
                                        <span class="prediction-prob">
                                         {{ prob[0] }}%
     <br>
-    <span class="risk-label" style="color:
-        {% if prob[1] == 'High Risk' %}#e63946
-        {% elif prob[1] == 'Moderate Risk' %}#ffb703
-        {% else %}#2a9d8f{% endif %};
-    ">
+    <span class="risk-label 
+    {% if prob[1] == 'High Risk' %}high-risk
+    {% elif prob[1] == 'Moderate Risk' %}moderate-risk
+    {% else %}low-risk{% endif %}
+">
         {{ prob[1] }}
     </span>
 </span>

@@ -266,7 +266,6 @@ def signup():
         email = request.form["email"]
         password = request.form["password"]
 
-        # check if user exists
         if users_collection.find_one({"email": email}):
             return render_template(
                 "signup.html",
@@ -275,10 +274,8 @@ def signup():
                 email=email
             )
 
-        # hash password
         hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
 
-        # store user
         users_collection.insert_one({
             "name": name,
             "email": email,
@@ -299,7 +296,6 @@ def login():
 
         user = users_collection.find_one({"email": email})
 
-        # user not found
         if not user:
             return render_template(
                 "login.html",
@@ -307,7 +303,6 @@ def login():
                 email=email
             )
 
-        # wrong password
         if not bcrypt.check_password_hash(user["password"], password):
             return render_template(
                 "login.html",

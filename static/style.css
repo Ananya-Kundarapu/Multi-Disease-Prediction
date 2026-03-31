@@ -817,6 +817,7 @@ html {
 #predict-btn-display:hover {
     background-color: #333333;
 }
+
 .content-wrapper {
   width: 100%;
   min-height: auto;
@@ -940,8 +941,6 @@ html {
     background: #fef2f2;
 }
 
-/* 🔥 LIFESTYLE SUGGESTIONS SECTION */
-
 .lifestyle-section {
     margin-top: 30px;
 }
@@ -956,7 +955,6 @@ html {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* hover effect (nice subtle UI) */
 .lifestyle-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -979,4 +977,15 @@ html {
     font-size: 14px;
     color: #374151;
     line-height: 1.5;
+}
+.high-risk {
+    color: #e63946;
+}
+
+.moderate-risk {
+    color: #ffb703;
+}
+
+.low-risk {
+    color: #2a9d8f;
 }
